@@ -108,14 +108,14 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 500;
       transition: color 0.2s ease;
     }
@@ -124,16 +124,62 @@
       color: var(--text-primary);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 3px 5px;
+      transition: border-color 0.2s;
+    }
+
+    .lang-switcher:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold));
+      color: #090D16;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
     .nav-cta {
       background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold));
       color: #090D16;
       font-weight: 700;
-      padding: 9px 20px;
+      padding: 8px 18px;
       border-radius: var(--radius-full);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
       transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
     }
 
     .nav-cta:hover {
@@ -192,8 +238,8 @@
     }
 
     .hero h1 {
-      font-size: 3.4rem;
-      line-height: 1.2;
+      font-size: 3.3rem;
+      line-height: 1.25;
       font-weight: 800;
       letter-spacing: -1.5px;
       margin-bottom: 24px;
@@ -209,9 +255,9 @@
     }
 
     .hero p.lead {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--text-secondary);
-      max-width: 740px;
+      max-width: 750px;
       margin: 0 auto 36px;
       word-break: keep-all;
     }
@@ -228,10 +274,10 @@
       background: linear-gradient(135deg, #FBBF24, #F59E0B);
       color: #090D16;
       font-weight: 700;
-      padding: 14px 32px;
+      padding: 14px 30px;
       border-radius: var(--radius-full);
       text-decoration: none;
-      font-size: 1.05rem;
+      font-size: 1rem;
       box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
       transition: all 0.2s ease;
       display: inline-flex;
@@ -250,15 +296,16 @@
       background: rgba(255, 255, 255, 0.05);
       color: var(--text-primary);
       font-weight: 600;
-      padding: 14px 28px;
+      padding: 14px 26px;
       border-radius: var(--radius-full);
       text-decoration: none;
-      font-size: 1.05rem;
+      font-size: 1rem;
       border: 1px solid var(--border-color);
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
 
     .btn-secondary:hover {
@@ -273,6 +320,7 @@
       gap: 36px;
       color: var(--text-muted);
       font-size: 0.9rem;
+      flex-wrap: wrap;
     }
 
     .hero-meta-item {
@@ -287,14 +335,14 @@
 
     /* Section Global */
     section {
-      padding: 100px 0;
+      padding: 95px 0;
       position: relative;
     }
 
     .section-header {
       text-align: center;
-      max-width: 680px;
-      margin: 0 auto 60px;
+      max-width: 700px;
+      margin: 0 auto 55px;
     }
 
     .section-tag {
@@ -308,7 +356,7 @@
     }
 
     .section-title {
-      font-size: 2.25rem;
+      font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: -1px;
       margin-bottom: 16px;
@@ -1114,9 +1162,9 @@
       .roadmap-timeline { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 2.1rem; }
+    @media (max-width: 768px) {
       .nav-links { display: none; }
+      .hero h1 { font-size: 2.2rem; }
       .quotes-grid { grid-template-columns: 1fr; }
       .market-stats { grid-template-columns: 1fr; }
       .email-signup { flex-direction: column; }
@@ -1133,15 +1181,23 @@
         <span>ALLNIGHT</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#problem">문제의식</a></li>
-        <li><a href="#voices">사용자 목소리</a></li>
-        <li><a href="#market">시장 환경</a></li>
-        <li><a href="#features">핵심 솔루션</a></li>
-        <li><a href="#demo">미리보기</a></li>
-        <li><a href="#comparison">비교분석</a></li>
-        <li><a href="#roadmap">로드맵</a></li>
+        <li><a href="#problem" data-i18n="nav_problem">문제의식</a></li>
+        <li><a href="#voices" data-i18n="nav_voices">사용자 목소리</a></li>
+        <li><a href="#market" data-i18n="nav_market">시장 환경</a></li>
+        <li><a href="#features" data-i18n="nav_features">핵심 솔루션</a></li>
+        <li><a href="#demo" data-i18n="nav_demo">미리보기</a></li>
+        <li><a href="#comparison" data-i18n="nav_comparison">비교분석</a></li>
+        <li><a href="#roadmap" data-i18n="nav_roadmap">로드맵</a></li>
       </ul>
-      <a href="#demo" class="nav-cta">탐색 체험하기</a>
+
+      <div class="nav-right">
+        <!-- Language Switcher -->
+        <div class="lang-switcher" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" data-lang-btn="ko" onclick="setLanguage('ko')">KO</button>
+          <button type="button" class="lang-btn" data-lang-btn="en" onclick="setLanguage('en')">EN</button>
+        </div>
+        <a href="#demo" class="nav-cta" data-i18n="nav_cta">탐색 체험하기</a>
+      </div>
     </div>
   </header>
 
@@ -1151,39 +1207,39 @@
     <div class="container">
       <div class="badge">
         <span class="badge-dot"></span>
-        심야 서비스 아카이브 & 커뮤니티 매핑
+        <span data-i18n="hero_badge">심야 서비스 아카이브 & 커뮤니티 매핑</span>
       </div>
-      <h1>
+      <h1 data-i18n="hero_title">
         밤을 잃어버린 도시에서,<br>
         <span class="gradient-text">당신의 다음 장소</span>를 찾다
       </h1>
-      <p class="lead">
+      <p class="lead" data-i18n="hero_lead">
         18:00부터 익일 07:00까지. 영업시간 불일치와 조건 분산으로 겪던 헛걸음은 이제 그만.<br>
         원하는 <strong>시간 구간</strong>과 <strong>필요 시설 조건</strong>에 딱 맞는 심야 장소를 하나의 지도에서 탐색하세요.
       </p>
 
       <div class="hero-actions">
         <a href="#demo" class="btn-primary">
-          <span>인터랙티브 데모 체험</span>
+          <span data-i18n="hero_btn_demo">인터랙티브 데모 체험</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <a href="#problem" class="btn-secondary">
-          <span>기획 배경 살펴보기</span>
+          <span data-i18n="hero_btn_plan">기획 배경 살펴보기</span>
         </a>
       </div>
 
       <div class="hero-meta">
         <div class="hero-meta-item">
-          <span>🎯 대상 시간</span>
+          <span data-i18n="hero_meta_1_label">🎯 대상 시간</span>
           <strong>18:00 ~ 07:00</strong>
         </div>
         <div class="hero-meta-item">
-          <span>👥 참여 방식</span>
-          <strong>커뮤니티 매핑 & 검증</strong>
+          <span data-i18n="hero_meta_2_label">👥 참여 방식</span>
+          <strong data-i18n="hero_meta_2_val">커뮤니티 매핑 & 검증</strong>
         </div>
         <div class="hero-meta-item">
-          <span>📍 서비스 영역</span>
-          <strong>식음료 · 스터디 · 의료 · 편의</strong>
+          <span data-i18n="hero_meta_3_label">📍 서비스 영역</span>
+          <strong data-i18n="hero_meta_3_val">식음료 · 스터디 · 의료 · 편의</strong>
         </div>
       </div>
     </div>
@@ -1193,9 +1249,9 @@
   <section id="problem">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Problem Definition</span>
-        <h2 class="section-title">왜 기존 지도로는<br>밤의 장소를 찾기 어려울까요?</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="problem_tag">Problem Definition</span>
+        <h2 class="section-title" data-i18n="problem_title">왜 기존 지도로는<br>밤의 장소를 찾기 어려울까요?</h2>
+        <p class="section-desc" data-i18n="problem_desc">
           일반 지도는 업종과 위치 중심입니다. 하지만 심야의 이용자는 "지금 문을 열었는가", "내 목적에 맞는 시설이 있는가", "정보가 정확한가"가 가장 절실합니다.
         </p>
       </div>
@@ -1203,24 +1259,24 @@
       <div class="problem-cards">
         <div class="card">
           <div class="card-icon">⏰</div>
-          <h3 class="card-title">시간 구간 검색의 한계</h3>
-          <p class="card-desc">
+          <h3 class="card-title" data-i18n="prob_card1_title">시간 구간 검색의 한계</h3>
+          <p class="card-desc" data-i18n="prob_card1_desc">
             '새벽 1시부터 4시까지 작업할 곳'처럼 자정을 넘나드는 방문 시간대를 일반 지도로는 필터링할 수 없습니다. 결과 장소마다 일일이 영업시간을 열어봐야 합니다.
           </p>
         </div>
 
         <div class="card">
           <div class="card-icon">⚡</div>
-          <h3 class="card-title">목적별 상세 조건 분산</h3>
-          <p class="card-desc">
+          <h3 class="card-title" data-i18n="prob_card2_title">목적별 상세 조건 분산</h3>
+          <p class="card-desc" data-i18n="prob_card2_desc">
             문은 열었더라도 '콘센트 유무', '노트북 작업 가능', '주차 지원', '무인 운영' 등 목적별 필수 조건은 장소 소개와 블로그 후기에 흩어져 있어 비교가 번거롭습니다.
           </p>
         </div>
 
         <div class="card">
           <div class="card-icon">⚠️</div>
-          <h3 class="card-title">영업정보 불일치 & 헛걸음</h3>
-          <p class="card-desc">
+          <h3 class="card-title" data-i18n="prob_card3_title">영업정보 불일치 & 헛걸음</h3>
+          <p class="card-desc" data-i18n="prob_card3_desc">
             지도에는 '24시간'으로 적혀 있지만 조기 마감했거나, 새벽에 냉난방을 끄는 등 실제 운영 상태와 다른 정보로 인해 심야에 길 위에서 낭패를 겪습니다.
           </p>
         </div>
@@ -1231,43 +1287,43 @@
         <div class="user-voices-header">
           <div>
             <div class="user-voices-title">
-              <span>💬 실제 사용자들의 야간 탐색 목소리</span>
+              <span data-i18n="voices_title">💬 실제 사용자들의 야간 탐색 목소리</span>
             </div>
-            <div class="user-voices-sub">블라인드, 오르비, 82쿡, 커뮤니티 실제 분석 사례 16건 기반</div>
+            <div class="user-voices-sub" data-i18n="voices_sub">블라인드, 오르비, 82쿡, 커뮤니티 실제 분석 사례 16건 기반</div>
           </div>
-          <span style="font-size:0.8rem; color:var(--accent-amber); font-weight:600;">#심야카페 #노트북작업 #새벽안전 #정보불일치</span>
+          <span style="font-size:0.8rem; color:var(--accent-amber); font-weight:600;" data-i18n="voices_tags">#심야카페 #노트북작업 #새벽안전 #정보불일치</span>
         </div>
 
         <div class="quotes-grid">
           <div class="quote-item">
-            <p class="quote-text">“코로나 이후로 24시간 카페를 보기 너무 힘들어졌다. 올빼미족에겐 선택지가 없다.”</p>
+            <p class="quote-text" data-i18n="quote_1_text">“코로나 이후로 24시간 카페를 보기 너무 힘들어졌다. 올빼미족에겐 선택지가 없다.”</p>
             <div class="quote-meta">
-              <span class="quote-tag">선택지 탐색</span>
-              <span>개인 블로그</span>
+              <span class="quote-tag" data-i18n="quote_1_tag">선택지 탐색</span>
+              <span data-i18n="quote_1_src">개인 블로그</span>
             </div>
           </div>
 
           <div class="quote-item">
-            <p class="quote-text">“합정에 늦게까지 하는 카페 있어? 노트북 펴고 작업하려고... 콘센트 있는 곳!”</p>
+            <p class="quote-text" data-i18n="quote_2_text">“합정에 늦게까지 하는 카페 있어? 노트북 펴고 작업하려고... 콘센트 있는 곳!”</p>
             <div class="quote-meta">
-              <span class="quote-tag">목적/조건 탐색</span>
-              <span>블라인드</span>
+              <span class="quote-tag" data-i18n="quote_2_tag">목적/조건 탐색</span>
+              <span data-i18n="quote_2_src">블라인드</span>
             </div>
           </div>
 
           <div class="quote-item">
-            <p class="quote-text">“새벽에 스카 갔는데 에어컨을 안 켜주네요... 24시간 영업이라고 해놓았으면서.”</p>
+            <p class="quote-text" data-i18n="quote_3_text">“새벽에 스카 갔는데 에어컨을 안 켜주네요... 24시간 영업이라고 해놓았으면서.”</p>
             <div class="quote-meta">
-              <span class="quote-tag">실제 환경 불일치</span>
-              <span>오르비</span>
+              <span class="quote-tag" data-i18n="quote_3_tag">실제 환경 불일치</span>
+              <span data-i18n="quote_3_src">오르비</span>
             </div>
           </div>
 
           <div class="quote-item">
-            <p class="quote-text">“술집 말고 여자 혼자 가도 안 무섭고 3~4시간 새벽 대기할 안전한 곳이 있을까요?”</p>
+            <p class="quote-text" data-i18n="quote_4_text">“술집 말고 여자 혼자 가도 안 무섭고 3~4시간 새벽 대기할 안전한 곳이 있을까요?”</p>
             <div class="quote-meta">
-              <span class="quote-tag">새벽 안전·체류</span>
-              <span>82쿡</span>
+              <span class="quote-tag" data-i18n="quote_4_tag">새벽 안전·체류</span>
+              <span data-i18n="quote_4_src">82쿡</span>
             </div>
           </div>
         </div>
@@ -1275,13 +1331,13 @@
     </div>
   </section>
 
-  <!-- Market Environment Section (From market.md & 261017_008.pdf) -->
+  <!-- Market Environment Section -->
   <section id="market" style="background: rgba(17, 24, 39, 0.3);">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Market Landscape & Why Now</span>
-        <h2 class="section-title">야간 활동이 도시 정책과<br>일상의 중심으로 떠오른 지금</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="market_tag">Market Landscape & Why Now</span>
+        <h2 class="section-title" data-i18n="market_title">야간 활동이 도시 정책과<br>일상의 중심으로 떠오른 지금</h2>
+        <p class="section-desc" data-i18n="market_desc">
           야간활동은 단순한 유흥이 아닙니다. 문화, 생활 필수 인프라, 동네 상권으로 확장되며 새로운 야간 정보 서비스의 표준을 요구하고 있습니다.
         </p>
       </div>
@@ -1289,42 +1345,42 @@
       <div class="market-stats">
         <div class="stat-card">
           <div class="stat-num">63%</div>
-          <div class="stat-label">야간활동 확대 의향</div>
-          <div class="stat-sub">서울시민 1,000명 대상 조사 (여건 개선 시 참여 희망)</div>
+          <div class="stat-label" data-i18n="stat1_label">야간활동 확대 의향</div>
+          <div class="stat-sub" data-i18n="stat1_sub">서울시민 1,000명 대상 조사 (여건 개선 시 참여 희망)</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-num">+15.1%</div>
-          <div class="stat-label">야간 승·하차 증가</div>
-          <div class="stat-sub">서울라이트 DDP 등 대형 야간 콘텐츠 운영 시 심야 이동 급증</div>
+          <div class="stat-label" data-i18n="stat2_label">야간 승·하차 증가</div>
+          <div class="stat-sub" data-i18n="stat2_sub">서울라이트 DDP 등 대형 야간 콘텐츠 운영 시 심야 이동 급증</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-num">24.9만건</div>
-          <div class="stat-label">공공심야약국 이용</div>
-          <div class="stat-sub">문화뿐 아니라 생활·의료 필수 서비스의 높은 야간 수요 증명</div>
+          <div class="stat-label" data-i18n="stat3_label">공공심야약국 이용</div>
+          <div class="stat-sub" data-i18n="stat3_sub">문화뿐 아니라 생활·의료 필수 서비스의 높은 야간 수요 증명</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-num">25곳</div>
-          <div class="stat-label">서울 달빛야장 육성</div>
-          <div class="stat-sub">2028년까지 골목상권 중심 생활형 야간 인프라 집중 확대</div>
+          <div class="stat-label" data-i18n="stat4_label">서울 달빛야장 육성</div>
+          <div class="stat-sub" data-i18n="stat4_sub">2028년까지 골목상권 중심 생활형 야간 인프라 집중 확대</div>
         </div>
       </div>
 
       <div class="market-insights">
         <div class="insight-box">
-          <span class="insight-badge">트렌드 ①</span>
-          <h4>서울형 야간경제와 공공 '서울 나이트 맵'의 태동</h4>
-          <p>
+          <span class="insight-badge" data-i18n="insight1_badge">트렌드 ①</span>
+          <h4 data-i18n="insight1_title">서울형 야간경제와 공공 '서울 나이트 맵'의 태동</h4>
+          <p data-i18n="insight1_desc">
             서울시는 2026년 8월 '서울형 야간경제'를 공식 발표하고 관광·명소 중심의 '서울 나이트 맵'을 가동했습니다. 이는 <strong>야간 시간대에 특화된 정보 탐색 수요가 공공 차원에서도 입증되었음</strong>을 보여줍니다. ALLNIGHT는 관광을 넘어 일상 생활형 야간 조건 탐색으로 차별화합니다.
           </p>
         </div>
 
         <div class="insight-box">
-          <span class="insight-badge">트렌드 ②</span>
-          <h4>기능의 유무가 아닌, '정보 신뢰도와 상세 밀도' 경쟁</h4>
-          <p>
+          <span class="insight-badge" data-i18n="insight2_badge">트렌드 ②</span>
+          <h4 data-i18n="insight2_title">기능의 유무가 아닌, '정보 신뢰도와 상세 밀도' 경쟁</h4>
+          <p data-i18n="insight2_desc">
             단순히 심야 지도를 띄우는 것만으로는 부족합니다. <strong>콘센트·노트북·무인 여부 등 실질적 태그 AND 검색</strong>, 그리고 <strong>마지막 확인 시점과 이용자 변경 제보</strong>가 결합된 커뮤니티 매핑 데이터가 승패를 결정합니다.
           </p>
         </div>
@@ -1336,9 +1392,9 @@
   <section id="features">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Core Capabilities</span>
-        <h2 class="section-title">ALLNIGHT가 제안하는<br>야간 장소 탐색 솔루션</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="features_tag">Core Capabilities</span>
+        <h2 class="section-title" data-i18n="features_title">ALLNIGHT가 제안하는<br>야간 장소 탐색 솔루션</h2>
+        <p class="section-desc" data-i18n="features_desc">
           자정을 넘는 시간 검색부터 검증된 태그 필터까지, 야간 이용자의 여정에 최적화된 4가지 핵심 가치
         </p>
       </div>
@@ -1346,55 +1402,55 @@
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-number">Feature 01</div>
-          <h3>자정을 넘나드는 '시간 구간 검색'</h3>
-          <p>
+          <h3 data-i18n="feat1_title">자정을 넘나드는 '시간 구간 검색'</h3>
+          <p data-i18n="feat1_desc">
             "오늘 밤 23시부터 내일 새벽 3시까지". 시작과 종료 시간을 직접 설정하면 설정한 시간 전체를 충족하는 장소를 우선 선별하고, 일부만 영업하는 장소는 이용 가능 시간을 투명하게 구분하여 안내합니다.
           </p>
           <div class="feature-preview">
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:#D1D5DB;">
-              <span>🕒 선택 시간: <strong>23:00 ~ 03:00 (+1일)</strong></span>
-              <span style="color:#10B981; font-weight:700;">전체 영업 매장 8곳 매칭</span>
+              <span data-i18n="feat1_preview_l">🕒 선택 시간: <strong>23:00 ~ 03:00 (+1일)</strong></span>
+              <span style="color:#10B981; font-weight:700;" data-i18n="feat1_preview_r">전체 영업 매장 8곳 매칭</span>
             </div>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-number">Feature 02</div>
-          <h3>복수 조건 충족 (AND) 상세 태그</h3>
-          <p>
+          <h3 data-i18n="feat2_title">복수 조건 충족 (AND) 상세 태그</h3>
+          <p data-i18n="feat2_desc">
             '콘센트' + '노트북 작업 가능' + '24시 무인'. 하나라도 빠지면 안 되는 방문 목적에 맞춰 다중 상세 태그의 교집합 검색을 지원합니다. 운영자 표준 태그에 이용자 제안 태그가 유연하게 더해집니다.
           </p>
           <div class="feature-preview">
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <span class="chip active">🔌 콘센트 전좌석</span>
-              <span class="chip active">💻 노트북 작업</span>
-              <span class="chip active">🚗 심야 주차 가능</span>
+              <span class="chip active" data-i18n="feat2_tag1">🔌 콘센트 전좌석</span>
+              <span class="chip active" data-i18n="feat2_tag2">💻 노트북 작업</span>
+              <span class="chip active" data-i18n="feat2_tag3">🚗 심야 주차 가능</span>
             </div>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-number">Feature 03</div>
-          <h3>신뢰를 지키는 '커뮤니티 매핑'</h3>
-          <p>
+          <h3 data-i18n="feat3_title">신뢰를 지키는 '커뮤니티 매핑'</h3>
+          <p data-i18n="feat3_desc">
             운영팀의 1차 검증 데이터 위에 이용자의 방문 시간대별 실시간 리뷰, 현장 제보, 영업시간 변경 요청이 누적됩니다. 모든 장소 카드에 '최종 확인 시점'을 명시하여 데이터 신선도를 투명하게 공개합니다.
           </p>
           <div class="feature-preview">
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:#9CA3AF;">
-              <span>최종 상태 검증: <strong>2026.10.19 (운영팀 확인)</strong></span>
-              <span style="color:#FBBF24;">유저 제보 3건 반영됨</span>
+              <span data-i18n="feat3_preview_l">최종 상태 검증: <strong>2026.10.19 (운영팀 확인)</strong></span>
+              <span style="color:#FBBF24;" data-i18n="feat3_preview_r">유저 제보 3건 반영됨</span>
             </div>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-number">Feature 04</div>
-          <h3>생활 필수 인프라까지 하나의 지도에</h3>
-          <p>
+          <h3 data-i18n="feat4_title">생활 필수 인프라까지 하나의 지도에</h3>
+          <p data-i18n="feat4_desc">
             카페와 음식점뿐만 아니라 늦은 밤 긴급히 필요한 공공심야약국, 24시 동물병원, 코인세탁소, PC방, 찜질방까지. 밤 시간대 일상과 비상을 아우르는 올인원 심야 아카이브를 제공합니다.
           </p>
           <div class="feature-preview">
-            <div style="display:flex; gap:10px; font-size:0.85rem; color:#E5E7EB;">
+            <div style="display:flex; gap:10px; font-size:0.85rem; color:#E5E7EB;" data-i18n="feat4_preview">
               <span>☕ 카페</span> • <span>🍲 식당</span> • <span>💊 심야약국</span> • <span>🧺 코인빨래</span> • <span>💻 PC방</span>
             </div>
           </div>
@@ -1407,9 +1463,9 @@
   <section id="demo">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Interactive Preview</span>
-        <h2 class="section-title">ALLNIGHT의 탐색 경험을<br>직접 시뮬레이션해보세요</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="demo_tag">Interactive Preview</span>
+        <h2 class="section-title" data-i18n="demo_title">ALLNIGHT의 탐색 경험을<br>직접 시뮬레이션해보세요</h2>
+        <p class="section-desc" data-i18n="demo_desc">
           시간 슬라이더와 상세 태그를 조작하면 조건에 일치하는 심야 장소가 실시간으로 필터링됩니다.
         </p>
       </div>
@@ -1417,12 +1473,12 @@
       <div class="interactive-demo">
         <div class="demo-header">
           <div class="demo-header-info">
-            <h4>🌙 심야 장소 실시간 필터 시뮬레이터</h4>
-            <p>방문할 시간대와 필요한 태그 조건을 선택해 보세요.</p>
+            <h4 data-i18n="sim_header_title">🌙 심야 장소 실시간 필터 시뮬레이터</h4>
+            <p data-i18n="sim_header_desc">방문할 시간대와 필요한 태그 조건을 선택해 보세요.</p>
           </div>
           <div class="status-live">
             <span class="status-live-dot"></span>
-            ALLNIGHT 엔진 활성화됨
+            <span data-i18n="sim_engine_status">ALLNIGHT 엔진 활성화됨</span>
           </div>
         </div>
 
@@ -1430,36 +1486,36 @@
           <!-- Time Slider -->
           <div class="control-group">
             <div class="slider-display">
-              <label>방문 희망 시간대</label>
+              <label data-i18n="sim_time_label">방문 희망 시간대</label>
               <span class="time-badge" id="timeDisplay">23:00 ~ 03:00 (익일)</span>
             </div>
             <div class="time-slider-wrap">
               <input type="range" id="timeRangeInput" min="18" max="31" value="23" step="1">
               <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
-                <span>18:00 (저녁)</span>
-                <span>24:00 (자정)</span>
-                <span>04:00 (새벽)</span>
-                <span>07:00 (아침)</span>
+                <span data-i18n="sim_time_tick1">18:00 (저녁)</span>
+                <span data-i18n="sim_time_tick2">24:00 (자정)</span>
+                <span data-i18n="sim_time_tick3">04:00 (새벽)</span>
+                <span data-i18n="sim_time_tick4">07:00 (아침)</span>
               </div>
             </div>
           </div>
 
           <!-- Tag Filters -->
           <div class="control-group">
-            <label>필요 상세 조건 (복수 선택 가능)</label>
+            <label data-i18n="sim_tags_label">필요 상세 조건 (복수 선택 가능)</label>
             <div class="tag-chips" id="tagContainer">
-              <span class="chip active" data-tag="laptop">💻 노트북 작업</span>
-              <span class="chip active" data-tag="plug">🔌 콘센트 완비</span>
-              <span class="chip" data-tag="parking">🚗 심야 주차</span>
-              <span class="chip" data-tag="quiet">🤫 조용한 분위기</span>
-              <span class="chip" data-tag="pharmacy">💊 긴급/의료</span>
+              <span class="chip active" data-tag="laptop" data-i18n="tag_laptop">💻 노트북 작업</span>
+              <span class="chip active" data-tag="plug" data-i18n="tag_plug">🔌 콘센트 완비</span>
+              <span class="chip" data-tag="parking" data-i18n="tag_parking">🚗 심야 주차</span>
+              <span class="chip" data-tag="quiet" data-i18n="tag_quiet">🤫 조용한 분위기</span>
+              <span class="chip" data-tag="pharmacy" data-i18n="tag_pharmacy">💊 긴급/의료</span>
             </div>
           </div>
         </div>
 
         <div class="demo-results-title">
-          <span>조건 일치 장소 목록 (<span id="matchCount">3</span>곳 발견)</span>
-          <span style="font-size:0.8rem; color:var(--text-muted);">* 시간 전체 충족 매장 우선 표시</span>
+          <span><span data-i18n="sim_results_prefix">조건 일치 장소 목록</span> (<span id="matchCount">3</span><span data-i18n="sim_results_suffix">곳 발견</span>)</span>
+          <span style="font-size:0.8rem; color:var(--text-muted);" data-i18n="sim_results_note">* 시간 전체 충족 매장 우선 표시</span>
         </div>
 
         <div class="places-list" id="placesContainer">
@@ -1469,13 +1525,13 @@
     </div>
   </section>
 
-  <!-- Comparison Section (From market.md Section 3) -->
+  <!-- Comparison Section -->
   <section id="comparison">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Competitive Advantage</span>
-        <h2 class="section-title">기존 지도 서비스와의 차별점</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="compare_tag">Competitive Advantage</span>
+        <h2 class="section-title" data-i18n="compare_title">기존 지도 서비스와의 차별점</h2>
+        <p class="section-desc" data-i18n="compare_desc">
           일반 지도부터 공공 야간 지도까지, ALLNIGHT는 야간 일상 이용자의 실제 필요에 집중합니다.
         </p>
       </div>
@@ -1484,48 +1540,48 @@
         <table class="compare-table">
           <thead>
             <tr>
-              <th>비교 항목</th>
-              <th>일반 지도 (네이버/카카오)</th>
-              <th>올빼미맵</th>
-              <th>서울 나이트 맵</th>
+              <th data-i18n="th_item">비교 항목</th>
+              <th data-i18n="th_general">일반 지도 (네이버/카카오)</th>
+              <th data-i18n="th_owl">올빼미맵</th>
+              <th data-i18n="th_seoul">서울 나이트 맵</th>
               <th class="col-highlight">ALLNIGHT</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>주요 탐색 목적</strong></td>
-              <td>전국 전업종 위치 및 길찾기</td>
-              <td>심야 영업 장소 탐색</td>
-              <td>서울 야간 관광/문화/축제</td>
-              <td class="col-highlight"><strong>생활형 심야 목적 & 조건 탐색</strong></td>
+              <td><strong data-i18n="td_r1_c1">주요 탐색 목적</strong></td>
+              <td data-i18n="td_r1_c2">전국 전업종 위치 및 길찾기</td>
+              <td data-i18n="td_r1_c3">심야 영업 장소 탐색</td>
+              <td data-i18n="td_r1_c4">서울 야간 관광/문화/축제</td>
+              <td class="col-highlight"><strong data-i18n="td_r1_c5">생활형 심야 목적 & 조건 탐색</strong></td>
             </tr>
             <tr>
-              <td><strong>시간 구간 검색</strong></td>
-              <td><span class="badge-cross">✕</span> (영업 여부 단건)</td>
-              <td><span class="badge-mid">△</span> (시작 시점 위주)</td>
-              <td><span class="badge-cross">✕</span> (단순 운영시간 표기)</td>
-              <td class="col-highlight"><span class="badge-check">✓</span> <strong>자정 넘는 구간 전체/일부 필터</strong></td>
+              <td><strong data-i18n="td_r2_c1">시간 구간 검색</strong></td>
+              <td><span class="badge-cross">✕</span> <span data-i18n="td_r2_c2">(영업 여부 단건)</span></td>
+              <td><span class="badge-mid">△</span> <span data-i18n="td_r2_c3">(시작 시점 위주)</span></td>
+              <td><span class="badge-cross">✕</span> <span data-i18n="td_r2_c4">(단순 운영시간 표기)</span></td>
+              <td class="col-highlight"><span class="badge-check">✓</span> <strong data-i18n="td_r2_c5">자정 넘는 구간 전체/일부 필터</strong></td>
             </tr>
             <tr>
-              <td><strong>상세 태그 AND 검색</strong></td>
-              <td><span class="badge-cross">✕</span> (기본 편의시설 필터)</td>
-              <td><span class="badge-mid">△</span> (기본 카테고리)</td>
-              <td><span class="badge-cross">✕</span> (테마별 큐레이션)</td>
-              <td class="col-highlight"><span class="badge-check">✓</span> <strong>노트북·콘센트·주차 교집합 검색</strong></td>
+              <td><strong data-i18n="td_r3_c1">상세 태그 AND 검색</strong></td>
+              <td><span class="badge-cross">✕</span> <span data-i18n="td_r3_c2">(기본 편의시설 필터)</span></td>
+              <td><span class="badge-mid">△</span> <span data-i18n="td_r3_c3">(기본 카테고리)</span></td>
+              <td><span class="badge-cross">✕</span> <span data-i18n="td_r3_c4">(테마별 큐레이션)</span></td>
+              <td class="col-highlight"><span class="badge-check">✓</span> <strong data-i18n="td_r3_c5">노트북·콘센트·주차 교집합 검색</strong></td>
             </tr>
             <tr>
-              <td><strong>정보 신뢰도 표기</strong></td>
-              <td>사업자 직접 수정</td>
-              <td>확인 시점 제공</td>
-              <td>공공 데이터 기반</td>
-              <td class="col-highlight"><span class="badge-check">✓</span> <strong>최종 확인일 + 유저 제보 + 검증 이력</strong></td>
+              <td><strong data-i18n="td_r4_c1">정보 신뢰도 표기</strong></td>
+              <td data-i18n="td_r4_c2">사업자 직접 수정</td>
+              <td data-i18n="td_r4_c3">확인 시점 제공</td>
+              <td data-i18n="td_r4_c4">공공 데이터 기반</td>
+              <td class="col-highlight"><span class="badge-check">✓</span> <strong data-i18n="td_r4_c5">최종 확인일 + 유저 제보 + 검증 이력</strong></td>
             </tr>
             <tr>
-              <td><strong>커뮤니티 매핑</strong></td>
-              <td>별점 및 한줄 리뷰</td>
-              <td>장소 제보 기능</td>
-              <td>없음 (일방향 안내)</td>
-              <td class="col-highlight"><span class="badge-check">✓</span> <strong>시간대별 방문 팁 & 신규 태그 제안</strong></td>
+              <td><strong data-i18n="td_r5_c1">커뮤니티 매핑</strong></td>
+              <td data-i18n="td_r5_c2">별점 및 한줄 리뷰</td>
+              <td data-i18n="td_r5_c3">장소 제보 기능</td>
+              <td data-i18n="td_r5_c4">없음 (일방향 안내)</td>
+              <td class="col-highlight"><span class="badge-check">✓</span> <strong data-i18n="td_r5_c5">시간대별 방문 팁 & 신규 태그 제안</strong></td>
             </tr>
           </tbody>
         </table>
@@ -1533,48 +1589,48 @@
     </div>
   </section>
 
-  <!-- Roadmap & Strategy Section (From PDF Section 5) -->
+  <!-- Roadmap Section -->
   <section id="roadmap" style="background: rgba(17, 24, 39, 0.3);">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Execution Roadmap</span>
-        <h2 class="section-title">단계별 서비스 실현 계획</h2>
-        <p class="section-desc">
+        <span class="section-tag" data-i18n="roadmap_tag">Execution Roadmap</span>
+        <h2 class="section-title" data-i18n="roadmap_title">단계별 서비스 실현 계획</h2>
+        <p class="section-desc" data-i18n="roadmap_desc">
           초기 고밀도 핵심 지역 집중부터 인스타그램 매거진, B2B 스폰서십까지의 확장 전략
         </p>
       </div>
 
       <div class="roadmap-timeline">
         <div class="roadmap-card active">
-          <span class="stage-tag">Phase 1 · 현재 진행</span>
-          <h3>프로토타입 검증</h3>
+          <span class="stage-tag" data-i18n="stage1_tag">Phase 1 · 현재 진행</span>
+          <h3 data-i18n="stage1_title">프로토타입 검증</h3>
           <ul class="roadmap-list">
-            <li>핵심 생활권 장소 30~50개 직접 조사 및 데이터 구축</li>
-            <li>지도·시간 구간 검색·상세 태그 AND 필터 코어 구현</li>
-            <li>장소별 최종 확인일 표기 및 제보 폼 운영</li>
-            <li>소수 타깃 그룹 대상 사용성 검증 테스트</li>
+            <li data-i18n="stage1_item1">핵심 생활권 장소 30~50개 직접 조사 및 데이터 구축</li>
+            <li data-i18n="stage1_item2">지도·시간 구간 검색·상세 태그 AND 필터 코어 구현</li>
+            <li data-i18n="stage1_item3">장소별 최종 확인일 표기 및 제보 폼 운영</li>
+            <li data-i18n="stage1_item4">소수 타깃 그룹 대상 사용성 검증 테스트</li>
           </ul>
         </div>
 
         <div class="roadmap-card">
-          <span class="stage-tag">Phase 2 · 준비 단계</span>
-          <h3>공개 베타 론칭</h3>
+          <span class="stage-tag" data-i18n="stage2_tag">Phase 2 · 준비 단계</span>
+          <h3 data-i18n="stage2_title">공개 베타 론칭</h3>
           <ul class="roadmap-list">
-            <li>등록 장소 300개소 이상으로 대상 권역 확대</li>
-            <li>이용자 참여형 커뮤니티 매핑 (태그 제안, 시간대 후기)</li>
-            <li>네이버 지도 · 카카오맵 길찾기 딥링크 연동</li>
-            <li>야간 현장 방문 검증단(나이트 서포터즈) 운영</li>
+            <li data-i18n="stage2_item1">등록 장소 300개소 이상으로 대상 권역 확대</li>
+            <li data-i18n="stage2_item2">이용자 참여형 커뮤니티 매핑 (태그 제안, 시간대 후기)</li>
+            <li data-i18n="stage2_item3">네이버 지도 · 카카오맵 길찾기 딥링크 연동</li>
+            <li data-i18n="stage2_item4">야간 현장 방문 검증단(나이트 서포터즈) 운영</li>
           </ul>
         </div>
 
         <div class="roadmap-card">
-          <span class="stage-tag">Phase 3 · 미래 확장</span>
-          <h3>서비스 확장 & 비즈니스</h3>
+          <span class="stage-tag" data-i18n="stage3_tag">Phase 3 · 미래 확장</span>
+          <h3 data-i18n="stage3_title">서비스 확장 & 비즈니스</h3>
           <ul class="roadmap-list">
-            <li>수도권 및 광역시 단위 야간 생활권 확장</li>
-            <li>ALLNIGHT MAGAZINE 큐레이션 미디어 연계</li>
-            <li>심야 매장 제휴 프로모션 & 로컬 B2B 광고 모델 도입</li>
-            <li>모바일 웹 최적화 및 PWA / 전용 앱 런칭</li>
+            <li data-i18n="stage3_item1">수도권 및 광역시 단위 야간 생활권 확장</li>
+            <li data-i18n="stage3_item2">ALLNIGHT MAGAZINE 큐레이션 미디어 연계</li>
+            <li data-i18n="stage3_item3">심야 매장 제휴 프로모션 & 로컬 B2B 광고 모델 도입</li>
+            <li data-i18n="stage3_item4">모바일 웹 최적화 및 PWA / 전용 앱 런칭</li>
           </ul>
         </div>
       </div>
@@ -1582,14 +1638,14 @@
       <!-- Magazine Banner -->
       <div class="expansion-banner">
         <div class="expansion-info">
-          <span class="expansion-tag">Content Expansion</span>
-          <h4 style="margin-top: 10px;">ALLNIGHT MAGAZINE 인스타그램 매거진 런칭</h4>
-          <p>
+          <span class="expansion-tag" data-i18n="mag_tag">Content Expansion</span>
+          <h4 style="margin-top: 10px;" data-i18n="mag_title">ALLNIGHT MAGAZINE 인스타그램 매거진 런칭</h4>
+          <p data-i18n="mag_desc">
             '새벽 2시, 노트북 들고 갈 만한 합정의 비밀 공간', '야간 드라이브 명소와 24시 심야 베이커리' 등 도시의 밤을 탐험하는 큐레이션 콘텐츠로 서비스 인지도를 강화하고 충성도 높은 올빼미족 커뮤니티를 형성합니다.
           </p>
         </div>
         <div>
-          <button class="btn-secondary" onclick="showToast('ALLNIGHT MAGAZINE 채널 준비 중입니다!')" style="border-color: rgba(167, 139, 250, 0.4); color: #EDE9FE;">
+          <button class="btn-secondary" onclick="showMagazineToast()" style="border-color: rgba(167, 139, 250, 0.4); color: #EDE9FE;" data-i18n="mag_btn">
             매거진 소식받기
           </button>
         </div>
@@ -1602,17 +1658,17 @@
     <div class="container">
       <div class="cta-box">
         <div class="badge" style="margin-bottom: 16px;">Early Access</div>
-        <h2>가장 먼저 도시의 밤을 만나보세요</h2>
-        <p>
+        <h2 data-i18n="cta_title">가장 먼저 도시의 밤을 만나보세요</h2>
+        <p data-i18n="cta_desc">
           ALLNIGHT는 헛걸음 없는 야간 활동을 지지합니다.<br>
           베타 런칭 알림을 신청하고 나만의 심야 아지트를 가장 먼저 발견하세요.
         </p>
 
-        <form class="email-signup" onsubmit="event.preventDefault(); showToast('사전 등록이 완료되었습니다. 오픈 시 알림을 보내드립니다!'); this.reset();">
-          <input type="email" placeholder="이메일 주소를 입력해 주세요" required>
-          <button type="submit" class="btn-primary" style="white-space:nowrap;">사전 등록하기</button>
+        <form class="email-signup" onsubmit="event.preventDefault(); submitEarlyAccess(this);">
+          <input type="email" id="emailInput" placeholder="이메일 주소를 입력해 주세요" required>
+          <button type="submit" class="btn-primary" style="white-space:nowrap;" data-i18n="cta_submit">사전 등록하기</button>
         </form>
-        <div class="cta-subtext">스팸 없이 서비스 오픈 알림 및 주요 업데이트만 전송됩니다.</div>
+        <div class="cta-subtext" data-i18n="cta_subtext">스팸 없이 서비스 오픈 알림 및 주요 업데이트만 전송됩니다.</div>
       </div>
     </div>
   </section>
@@ -1623,33 +1679,33 @@
       <div class="footer-top">
         <div class="footer-brand">
           <h5>🌙 ALLNIGHT (올나이트)</h5>
-          <p style="max-width:380px; margin-top:8px; line-height:1.5;">
+          <p style="max-width:380px; margin-top:8px; line-height:1.5;" data-i18n="footer_brand_desc">
             심야 서비스 아카이브 · 커뮤니티 매핑 기반 야간 장소 탐색 플랫폼<br>
             밤새도록(All Night) & 모든 밤(All + Night)을 잇는 야간 라이프의 새로운 기준
           </p>
         </div>
         <div class="footer-meta">
           <div class="footer-meta-col">
-            <h6>기획 문서</h6>
+            <h6 data-i18n="footer_col1_title">기획 문서</h6>
             <ul>
-              <li><a href="#problem">기획서 (261017_008)</a></li>
-              <li><a href="#market">시장 분석서 (market.md)</a></li>
-              <li><a href="#voices">사용자 분석서 (user.md)</a></li>
+              <li><a href="#problem" data-i18n="footer_doc1">기획서 (261017_008)</a></li>
+              <li><a href="#market" data-i18n="footer_doc2">시장 분석서 (market.md)</a></li>
+              <li><a href="#voices" data-i18n="footer_doc3">사용자 분석서 (user.md)</a></li>
             </ul>
           </div>
           <div class="footer-meta-col">
-            <h6>핵심 탐색</h6>
+            <h6 data-i18n="footer_col2_title">핵심 탐색</h6>
             <ul>
-              <li><a href="#demo">시간 구간 필터</a></li>
-              <li><a href="#demo">다중 태그 AND 검색</a></li>
-              <li><a href="#demo">정보 신뢰도 검증</a></li>
+              <li><a href="#demo" data-i18n="footer_nav1">시간 구간 필터</a></li>
+              <li><a href="#demo" data-i18n="footer_nav2">다중 태그 AND 검색</a></li>
+              <li><a href="#demo" data-i18n="footer_nav3">정보 신뢰도 검증</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <div>© 2026 ALLNIGHT Team. All rights reserved. 본 페이지는 기획서 기반 공식 소개 랜딩페이지입니다.</div>
-        <div>조사 기준일: 2026.10.21 · 서울형 야간경제 & 사용자 리서치 반영</div>
+        <div data-i18n="footer_copyright">© 2026 ALLNIGHT Team. All rights reserved. 본 페이지는 기획서 기반 공식 소개 랜딩페이지입니다.</div>
+        <div data-i18n="footer_date">조사 기준일: 2026.10.21 · 서울형 야간경제 & 사용자 리서치 반영</div>
       </div>
     </div>
   </footer>
@@ -1658,84 +1714,506 @@
   <div id="toast" class="toast">알림 메시지</div>
 
   <script>
-    // Sample Places Data (Based on Market & User Research)
+    // i18n Translation Dictionary
+    const i18n = {
+      ko: {
+        page_title: "ALLNIGHT | 심야 서비스 아카이브 & 커뮤니티 매핑 플랫폼",
+        nav_problem: "문제의식",
+        nav_voices: "사용자 목소리",
+        nav_market: "시장 환경",
+        nav_features: "핵심 솔루션",
+        nav_demo: "미리보기",
+        nav_comparison: "비교분석",
+        nav_roadmap: "로드맵",
+        nav_cta: "탐색 체험하기",
+        hero_badge: "심야 서비스 아카이브 & 커뮤니티 매핑",
+        hero_title: "밤을 잃어버린 도시에서,<br><span class=\"gradient-text\">당신의 다음 장소</span>를 찾다",
+        hero_lead: "18:00부터 익일 07:00까지. 영업시간 불일치와 조건 분산으로 겪던 헛걸음은 이제 그만.<br>원하는 <strong>시간 구간</strong>과 <strong>필요 시설 조건</strong>에 딱 맞는 심야 장소를 하나의 지도에서 탐색하세요.",
+        hero_btn_demo: "인터랙티브 데모 체험",
+        hero_btn_plan: "기획 배경 살펴보기",
+        hero_meta_1_label: "🎯 대상 시간",
+        hero_meta_2_label: "👥 참여 방식",
+        hero_meta_2_val: "커뮤니티 매핑 & 검증",
+        hero_meta_3_label: "📍 서비스 영역",
+        hero_meta_3_val: "식음료 · 스터디 · 의료 · 편의",
+
+        problem_tag: "Problem Definition",
+        problem_title: "왜 기존 지도로는<br>밤의 장소를 찾기 어려울까요?",
+        problem_desc: "일반 지도는 업종과 위치 중심입니다. 하지만 심야의 이용자는 \"지금 문을 열었는가\", \"내 목적에 맞는 시설이 있는가\", \"정보가 정확한가\"가 가장 절실합니다.",
+        prob_card1_title: "시간 구간 검색의 한계",
+        prob_card1_desc: "'새벽 1시부터 4시까지 작업할 곳'처럼 자정을 넘나드는 방문 시간대를 일반 지도로는 필터링할 수 없습니다. 결과 장소마다 일일이 영업시간을 열어봐야 합니다.",
+        prob_card2_title: "목적별 상세 조건 분산",
+        prob_card2_desc: "문은 열었더라도 '콘센트 유무', '노트북 작업 가능', '주차 지원', '무인 운영' 등 목적별 필수 조건은 장소 소개와 블로그 후기에 흩어져 있어 비교가 번거롭습니다.",
+        prob_card3_title: "영업정보 불일치 & 헛걸음",
+        prob_card3_desc: "지도에는 '24시간'으로 적혀 있지만 조기 마감했거나, 새벽에 냉난방을 끄는 등 실제 운영 상태와 다른 정보로 인해 심야에 길 위에서 낭패를 겪습니다.",
+
+        voices_title: "💬 실제 사용자들의 야간 탐색 목소리",
+        voices_sub: "블라인드, 오르비, 82쿡, 커뮤니티 실제 분석 사례 16건 기반",
+        voices_tags: "#심야카페 #노트북작업 #새벽안전 #정보불일치",
+        quote_1_text: "“코로나 이후로 24시간 카페를 보기 너무 힘들어졌다. 올빼미족에겐 선택지가 없다.”",
+        quote_1_tag: "선택지 탐색",
+        quote_1_src: "개인 블로그",
+        quote_2_text: "“합정에 늦게까지 하는 카페 있어? 노트북 펴고 작업하려고... 콘센트 있는 곳!”",
+        quote_2_tag: "목적/조건 탐색",
+        quote_2_src: "블라인드",
+        quote_3_text: "“새벽에 스카 갔는데 에어컨을 안 켜주네요... 24시간 영업이라고 해놓았으면서.”",
+        quote_3_tag: "실제 환경 불일치",
+        quote_3_src: "오르비",
+        quote_4_text: "“술집 말고 여자 혼자 가도 안 무섭고 3~4시간 새벽 대기할 안전한 곳이 있을까요?”",
+        quote_4_tag: "새벽 안전·체류",
+        quote_4_src: "82쿡",
+
+        market_tag: "Market Landscape & Why Now",
+        market_title: "야간 활동이 도시 정책과<br>일상의 중심으로 떠오른 지금",
+        market_desc: "야간활동은 단순한 유흥이 아닙니다. 문화, 생활 필수 인프라, 동네 상권으로 확장되며 새로운 야간 정보 서비스의 표준을 요구하고 있습니다.",
+        stat1_label: "야간활동 확대 의향",
+        stat1_sub: "서울시민 1,000명 대상 조사 (여건 개선 시 참여 희망)",
+        stat2_label: "야간 승·하차 증가",
+        stat2_sub: "서울라이트 DDP 등 대형 야간 콘텐츠 운영 시 심야 이동 급증",
+        stat3_label: "공공심야약국 이용",
+        stat3_sub: "문화뿐 아니라 생활·의료 필수 서비스의 높은 야간 수요 증명",
+        stat4_label: "서울 달빛야장 육성",
+        stat4_sub: "2028년까지 골목상권 중심 생활형 야간 인프라 집중 확대",
+        insight1_badge: "트렌드 ①",
+        insight1_title: "서울형 야간경제와 공공 '서울 나이트 맵'의 태동",
+        insight1_desc: "서울시는 2026년 8월 '서울형 야간경제'를 공식 발표하고 관광·명소 중심의 '서울 나이트 맵'을 가동했습니다. 이는 <strong>야간 시간대에 특화된 정보 탐색 수요가 공공 차원에서도 입증되었음</strong>을 보여줍니다. ALLNIGHT는 관광을 넘어 일상 생활형 야간 조건 탐색으로 차별화합니다.",
+        insight2_badge: "트렌드 ②",
+        insight2_title: "기능의 유무가 아닌, '정보 신뢰도와 상세 밀도' 경쟁",
+        insight2_desc: "단순히 심야 지도를 띄우는 것만으로는 부족합니다. <strong>콘센트·노트북·무인 여부 등 실질적 태그 AND 검색</strong>, 그리고 <strong>마지막 확인 시점과 이용자 변경 제보</strong>가 결합된 커뮤니티 매핑 데이터가 승패를 결정합니다.",
+
+        features_tag: "Core Capabilities",
+        features_title: "ALLNIGHT가 제안하는<br>야간 장소 탐색 솔루션",
+        features_desc: "자정을 넘는 시간 검색부터 검증된 태그 필터까지, 야간 이용자의 여정에 최적화된 4가지 핵심 가치",
+        feat1_title: "자정을 넘나드는 '시간 구간 검색'",
+        feat1_desc: "\"오늘 밤 23시부터 내일 새벽 3시까지\". 시작과 종료 시간을 직접 설정하면 설정한 시간 전체를 충족하는 장소를 우선 선별하고, 일부만 영업하는 장소는 이용 가능 시간을 투명하게 구분하여 안내합니다.",
+        feat1_preview_l: "🕒 선택 시간: <strong>23:00 ~ 03:00 (+1일)</strong>",
+        feat1_preview_r: "전체 영업 매장 8곳 매칭",
+        feat2_title: "복수 조건 충족 (AND) 상세 태그",
+        feat2_desc: "'콘센트' + '노트북 작업 가능' + '24시 무인'. 하나라도 빠지면 안 되는 방문 목적에 맞춰 다중 상세 태그의 교집합 검색을 지원합니다. 운영자 표준 태그에 이용자 제안 태그가 유연하게 더해집니다.",
+        feat2_tag1: "🔌 콘센트 전좌석",
+        feat2_tag2: "💻 노트북 작업",
+        feat2_tag3: "🚗 심야 주차 가능",
+        feat3_title: "신뢰를 지키는 '커뮤니티 매핑'",
+        feat3_desc: "운영팀의 1차 검증 데이터 위에 이용자의 방문 시간대별 실시간 리뷰, 현장 제보, 영업시간 변경 요청이 누적됩니다. 모든 장소 카드에 '최종 확인 시점'을 명시하여 데이터 신선도를 투명하게 공개합니다.",
+        feat3_preview_l: "최종 상태 검증: <strong>2026.10.19 (운영팀 확인)</strong>",
+        feat3_preview_r: "유저 제보 3건 반영됨",
+        feat4_title: "생활 필수 인프라까지 하나의 지도에",
+        feat4_desc: "카페와 음식점뿐만 아니라 늦은 밤 긴급히 필요한 공공심야약국, 24시 동물병원, 코인세탁소, PC방, 찜질방까지. 밤 시간대 일상과 비상을 아우르는 올인원 심야 아카이브를 제공합니다.",
+        feat4_preview: "<span>☕ 카페</span> • <span>🍲 식당</span> • <span>💊 심야약국</span> • <span>🧺 코인빨래</span> • <span>💻 PC방</span>",
+
+        demo_tag: "Interactive Preview",
+        demo_title: "ALLNIGHT의 탐색 경험을<br>직접 시뮬레이션해보세요",
+        demo_desc: "시간 슬라이더와 상세 태그를 조작하면 조건에 일치하는 심야 장소가 실시간으로 필터링됩니다.",
+        sim_header_title: "🌙 심야 장소 실시간 필터 시뮬레이터",
+        sim_header_desc: "방문할 시간대와 필요한 태그 조건을 선택해 보세요.",
+        sim_engine_status: "ALLNIGHT 엔진 활성화됨",
+        sim_time_label: "방문 희망 시간대",
+        sim_time_tick1: "18:00 (저녁)",
+        sim_time_tick2: "24:00 (자정)",
+        sim_time_tick3: "04:00 (새벽)",
+        sim_time_tick4: "07:00 (아침)",
+        sim_tags_label: "필요 상세 조건 (복수 선택 가능)",
+        tag_laptop: "💻 노트북 작업",
+        tag_plug: "🔌 콘센트 완비",
+        tag_parking: "🚗 심야 주차",
+        tag_quiet: "🤫 조용한 분위기",
+        tag_pharmacy: "💊 긴급/의료",
+        sim_results_prefix: "조건 일치 장소 목록",
+        sim_results_suffix: "곳 발견",
+        sim_results_note: "* 시간 전체 충족 매장 우선 표시",
+
+        compare_tag: "Competitive Advantage",
+        compare_title: "기존 지도 서비스와의 차별점",
+        compare_desc: "일반 지도부터 공공 야간 지도까지, ALLNIGHT는 야간 일상 이용자의 실제 필요에 집중합니다.",
+        th_item: "비교 항목",
+        th_general: "일반 지도 (네이버/카카오)",
+        th_owl: "올빼미맵",
+        th_seoul: "서울 나이트 맵",
+        td_r1_c1: "주요 탐색 목적",
+        td_r1_c2: "전국 전업종 위치 및 길찾기",
+        td_r1_c3: "심야 영업 장소 탐색",
+        td_r1_c4: "서울 야간 관광/문화/축제",
+        td_r1_c5: "생활형 심야 목적 & 조건 탐색",
+        td_r2_c1: "시간 구간 검색",
+        td_r2_c2: "(영업 여부 단건)",
+        td_r2_c3: "(시작 시점 위주)",
+        td_r2_c4: "(단순 운영시간 표기)",
+        td_r2_c5: "자정 넘는 구간 전체/일부 필터",
+        td_r3_c1: "상세 태그 AND 검색",
+        td_r3_c2: "(기본 편의시설 필터)",
+        td_r3_c3: "(기본 카테고리)",
+        td_r3_c4: "(테마별 큐레이션)",
+        td_r3_c5: "노트북·콘센트·주차 교집합 검색",
+        td_r4_c1: "정보 신뢰도 표기",
+        td_r4_c2: "사업자 직접 수정",
+        td_r4_c3: "확인 시점 제공",
+        td_r4_c4: "공공 데이터 기반",
+        td_r4_c5: "최종 확인일 + 유저 제보 + 검증 이력",
+        td_r5_c1: "커뮤니티 매핑",
+        td_r5_c2: "별점 및 한줄 리뷰",
+        td_r5_c3: "장소 제보 기능",
+        td_r5_c4: "없음 (일방향 안내)",
+        td_r5_c5: "시간대별 방문 팁 & 신규 태그 제안",
+
+        roadmap_tag: "Execution Roadmap",
+        roadmap_title: "단계별 서비스 실현 계획",
+        roadmap_desc: "초기 고밀도 핵심 지역 집중부터 인스타그램 매거진, B2B 스폰서십까지의 확장 전략",
+        stage1_tag: "Phase 1 · 현재 진행",
+        stage1_title: "프로토타입 검증",
+        stage1_item1: "핵심 생활권 장소 30~50개 직접 조사 및 데이터 구축",
+        stage1_item2: "지도·시간 구간 검색·상세 태그 AND 필터 코어 구현",
+        stage1_item3: "장소별 최종 확인일 표기 및 제보 폼 운영",
+        stage1_item4: "소수 타깃 그룹 대상 사용성 검증 테스트",
+        stage2_tag: "Phase 2 · 준비 단계",
+        stage2_title: "공개 베타 론칭",
+        stage2_item1: "등록 장소 300개소 이상으로 대상 권역 확대",
+        stage2_item2: "이용자 참여형 커뮤니티 매핑 (태그 제안, 시간대 후기)",
+        stage2_item3: "네이버 지도 · 카카오맵 길찾기 딥링크 연동",
+        stage2_item4: "야간 현장 방문 검증단(나이트 서포터즈) 운영",
+        stage3_tag: "Phase 3 · 미래 확장",
+        stage3_title: "서비스 확장 & 비즈니스",
+        stage3_item1: "수도권 및 광역시 단위 야간 생활권 확장",
+        stage3_item2: "ALLNIGHT MAGAZINE 큐레이션 미디어 연계",
+        stage3_item3: "심야 매장 제휴 프로모션 & 로컬 B2B 광고 모델 도입",
+        stage3_item4: "모바일 웹 최적화 및 PWA / 전용 앱 런칭",
+        mag_tag: "Content Expansion",
+        mag_title: "ALLNIGHT MAGAZINE 인스타그램 매거진 런칭",
+        mag_desc: "'새벽 2시, 노트북 들고 갈 만한 합정의 비밀 공간', '야간 드라이브 명소와 24시 심야 베이커리' 등 도시의 밤을 탐험하는 큐레이션 콘텐츠로 서비스 인지도를 강화하고 충성도 높은 올빼미족 커뮤니티를 형성합니다.",
+        mag_btn: "매거진 소식받기",
+
+        cta_title: "가장 먼저 도시의 밤을 만나보세요",
+        cta_desc: "ALLNIGHT는 헛걸음 없는 야간 활동을 지지합니다.<br>베타 런칭 알림을 신청하고 나만의 심야 아지트를 가장 먼저 발견하세요.",
+        cta_submit: "사전 등록하기",
+        cta_subtext: "스팸 없이 서비스 오픈 알림 및 주요 업데이트만 전송됩니다.",
+        email_placeholder: "이메일 주소를 입력해 주세요",
+
+        footer_brand_desc: "심야 서비스 아카이브 · 커뮤니티 매핑 기반 야간 장소 탐색 플랫폼<br>밤새도록(All Night) & 모든 밤(All + Night)을 잇는 야간 라이프의 새로운 기준",
+        footer_col1_title: "기획 문서",
+        footer_doc1: "기획서 (261017_008)",
+        footer_doc2: "시장 분석서 (market.md)",
+        footer_doc3: "사용자 분석서 (user.md)",
+        footer_col2_title: "핵심 탐색",
+        footer_nav1: "시간 구간 필터",
+        footer_nav2: "다중 태그 AND 검색",
+        footer_nav3: "정보 신뢰도 검증",
+        footer_copyright: "© 2026 ALLNIGHT Team. All rights reserved. 본 페이지는 기획서 기반 공식 소개 랜딩페이지입니다.",
+        footer_date: "조사 기준일: 2026.10.21 · 서울형 야간경제 & 사용자 리서치 반영",
+
+        // Simulator card dynamic
+        card_full_open: "전체 영업 충족",
+        card_partial_open: "일부 시간 영업",
+        card_directions: "길찾기 →",
+        card_verified_suffix: " 확인",
+        card_empty_msg: "🔍 선택하신 시간과 조건에 맞는 장소를 찾지 못했습니다.<br>태그 조건을 줄이거나 다른 시간대로 변경해 보세요.",
+        toast_directions_suffix: " 카카오/네이버 지도 길찾기 연동",
+        toast_mag_msg: "ALLNIGHT MAGAZINE 채널 준비 중입니다!",
+        toast_early_access: "사전 등록이 완료되었습니다. 오픈 시 알림을 보내드립니다!"
+      },
+      en: {
+        page_title: "ALLNIGHT | Late-Night Service Archive & Community Mapping",
+        nav_problem: "Problems",
+        nav_voices: "User Voices",
+        nav_market: "Market Context",
+        nav_features: "Features",
+        nav_demo: "Demo",
+        nav_comparison: "Comparison",
+        nav_roadmap: "Roadmap",
+        nav_cta: "Try Demo",
+        hero_badge: "Late-Night Service Archive & Community Mapping",
+        hero_title: "In a city that lost the night,<br><span class=\"gradient-text\">Find your next place</span>",
+        hero_lead: "From 18:00 to 07:00 next morning. Say goodbye to wasted trips caused by mismatched operating hours and fragmented details.<br>Discover late-night spots perfectly tailored to your <strong>time interval</strong> and <strong>required amenities</strong> on a single map.",
+        hero_btn_demo: "Try Interactive Demo",
+        hero_btn_plan: "Explore Project Plan",
+        hero_meta_1_label: "🎯 Target Hours",
+        hero_meta_2_label: "👥 Model",
+        hero_meta_2_val: "Community Mapping & Verified",
+        hero_meta_3_label: "📍 Coverage",
+        hero_meta_3_val: "F&B · Study · Medical · Essentials",
+
+        problem_tag: "Problem Definition",
+        problem_title: "Why is finding open late-night spots<br>still difficult with general maps?",
+        problem_desc: "General maps focus on broad categories and locations. However, nocturnal users urgently need to know: \"Is it open right now?\", \"Does it provide what I need?\", and \"Is this information actually true?\"",
+        prob_card1_title: "Limits of Time-Interval Search",
+        prob_card1_desc: "You cannot filter for cross-midnight schedules like 'somewhere to work from 1:00 AM to 4:00 AM' in standard maps without opening every individual business detail card.",
+        prob_card2_title: "Scattered Amenity Conditions",
+        prob_card2_desc: "Even if a store is open, essential criteria such as 'power outlets', 'laptop-friendly', 'night parking', and 'unmanned access' are scattered across blog reviews and store bios.",
+        prob_card3_title: "Hours Inaccuracy & Wasted Trips",
+        prob_card3_desc: "Stores marked '24 Hours' often close early without notice or shut off HVAC systems after midnight, causing frustrating wasted visits in the dead of night.",
+
+        voices_title: "💬 Real Voices of Late-Night Searchers",
+        voices_sub: "Synthesized from 16 real user cases across Blind, Orbi, 82cook, and blogs",
+        voices_tags: "#LateNightCafe #LaptopFriendly #NightSafety #InfoDiscrepancy",
+        quote_1_text: "“Ever since pandemic restrictions ended, 24h cafes have vanished. Night owls literally have zero choices left.”",
+        quote_1_tag: "Choice Shortage",
+        quote_1_src: "Personal Blog",
+        quote_2_text: "“Any cafe open late in Hapjeong? Need to open my laptop and work with power outlets!”",
+        quote_2_tag: "Specific Amenity",
+        quote_2_src: "Blind",
+        quote_3_text: "“Went to a study cafe at 2 AM and they turned off AC... Why market as 24-hour open then?”",
+        quote_3_tag: "Condition Mismatch",
+        quote_3_src: "Orbi",
+        quote_4_text: "“Looking for a safe, non-bar space where a solo woman can wait safely for 3-4 hours at dawn.”",
+        quote_4_tag: "Safety & Stay",
+        quote_4_src: "82cook",
+
+        market_tag: "Market Landscape & Why Now",
+        market_title: "Late-Night Activities Are Becoming<br>the Epicenter of Urban Policy and Daily Life",
+        market_desc: "Nightlife is no longer confined to drinking or entertainment. It has grown into cultural events, essential neighborhood infrastructure, and local district vitalization.",
+        stat1_label: "Willingness to Extend Night Life",
+        stat1_sub: "Survey of 1,000 Seoul citizens (desire to participate if conditions improve)",
+        stat2_label: "Night Transit Surge",
+        stat2_sub: "Transit volume jump around major night events like Seoul Light DDP (+15.1%)",
+        stat3_label: "Night Pharmacy Visits",
+        stat3_sub: "249K+ prescriptions & drug sales at public late-night pharmacies in Seoul",
+        stat4_label: "Moonlight Alley Markets",
+        stat4_sub: "Expanding neighborhood late-night hubs to 25 target districts by 2028",
+        insight1_badge: "Trend ①",
+        insight1_title: "Seoul's Night Economy Policy & 'Seoul Night Map'",
+        insight1_desc: "In August 2026, Seoul officially announced its 'Night-Time Economy' strategy and launched the public 'Seoul Night Map' for tourism. This <strong>validates the surging demand for time-specialized navigation</strong>. ALLNIGHT differentiates itself by focusing on everyday functional conditions.",
+        insight2_badge: "Trend ②",
+        insight2_title: "Winning by 'Information Freshness & Detail Density'",
+        insight2_desc: "Merely displaying pins on a dark map is not enough. The definitive moat lies in <strong>multi-tag AND filtering (outlets + laptops + unmanned)</strong> paired with <strong>verified timestamps and community-driven report updates</strong>.",
+
+        features_tag: "Core Capabilities",
+        features_title: "The ALLNIGHT Solution<br>Engineered for Nocturnal Living",
+        features_desc: "From cross-midnight range queries to verified tag combinations, four pillars crafted for late-night journeys.",
+        feat1_title: "Cross-Midnight 'Time Interval Search'",
+        feat1_desc: "\"From 11:00 PM tonight to 3:00 AM tomorrow.\" Set custom start and end times to prioritize places that satisfy the entire window, with transparent tags for partial-hour options.",
+        feat1_preview_l: "🕒 Selected: <strong>23:00 ~ 03:00 (+1d)</strong>",
+        feat1_preview_r: "8 fully matching places found",
+        feat2_title: "Multi-Condition (AND) Detail Tags",
+        feat2_desc: "'Power outlets' + 'Laptop working allowed' + '24h unmanned'. Filter precisely by the intersection of your required amenities. Curated standard tags blend seamlessly with user-submitted tags.",
+        feat2_tag1: "🔌 Outlets Every Seat",
+        feat2_tag2: "💻 Laptop Friendly",
+        feat2_tag3: "🚗 Night Parking",
+        feat3_title: "Trust Anchored by 'Community Mapping'",
+        feat3_desc: "On top of our team's primary verified database, user reviews by hour, real-time tips, and correction requests accumulate. Every card shows a transparent 'Last Verified Date'.",
+        feat3_preview_l: "Last Status Check: <strong>2026.10.19 (Admin Verified)</strong>",
+        feat3_preview_r: "3 user updates reflected",
+        feat4_title: "All Vital Infrastructure on One Map",
+        feat4_desc: "From cafes and dining to public late-night pharmacies, 24h animal hospitals, coin laundromats, PC cafes, and saunas. An all-in-one archive bridging routine and emergencies.",
+        feat4_preview: "<span>☕ Cafe</span> • <span>🍲 Dining</span> • <span>💊 Night Pharmacy</span> • <span>🧺 Laundry</span> • <span>💻 PC Cafe</span>",
+
+        demo_tag: "Interactive Preview",
+        demo_title: "Experience the ALLNIGHT Search<br>Interactive Simulator",
+        demo_desc: "Adjust the time slider and amenity tags to watch matching late-night venues filter in real-time.",
+        sim_header_title: "🌙 Real-Time Late-Night Filter Simulator",
+        sim_header_desc: "Select your desired visit time window and essential amenities.",
+        sim_engine_status: "ALLNIGHT Engine Active",
+        sim_time_label: "Desired Visit Time Window",
+        sim_time_tick1: "18:00 (Evening)",
+        sim_time_tick2: "24:00 (Midnight)",
+        sim_time_tick3: "04:00 (Dawn)",
+        sim_time_tick4: "07:00 (Morning)",
+        sim_tags_label: "Required Amenities (Multi-select)",
+        tag_laptop: "💻 Laptop Friendly",
+        tag_plug: "🔌 Power Outlets",
+        tag_parking: "🚗 Night Parking",
+        tag_quiet: "🤫 Quiet Space",
+        tag_pharmacy: "💊 Emergency/Medical",
+        sim_results_prefix: "Matching Venues",
+        sim_results_suffix: "places found",
+        sim_results_note: "* Full-window coverage places shown first",
+
+        compare_tag: "Competitive Advantage",
+        compare_title: "How ALLNIGHT Differs from Existing Maps",
+        compare_desc: "From general navigation giants to public tourism guides, ALLNIGHT zeros in on real everyday late-night needs.",
+        th_item: "Criteria",
+        th_general: "General Maps (Naver/Kakao)",
+        th_owl: "Owl Map",
+        th_seoul: "Seoul Night Map",
+        td_r1_c1: "Primary Purpose",
+        td_r1_c2: "Nationwide navigation & routing",
+        td_r1_c3: "Night store location search",
+        td_r1_c4: "Night tourism, culture & festivals",
+        td_r1_c5: "Everyday late-night needs & amenity matching",
+        td_r2_c1: "Time Range Search",
+        td_r2_c2: "✕ (Single status check)",
+        td_r2_c3: "△ (Start-time focused)",
+        td_r2_c4: "✕ (Static hours listed)",
+        td_r2_c5: "✓ Cross-midnight range & full/partial filter",
+        td_r3_c1: "Multi-Tag AND Search",
+        td_r3_c2: "✕ (Basic filter only)",
+        td_r3_c3: "△ (Basic category only)",
+        td_r3_c4: "✕ (Curated themes)",
+        td_r3_c5: "✓ Laptop · Outlets · Parking intersection",
+        td_r4_c1: "Data Trust / Freshness",
+        td_r4_c2: "Merchant manual edits",
+        td_r4_c3: "Checked timestamp shown",
+        td_r4_c4: "Public static data",
+        td_r4_c5: "✓ Verified date + user reports + admin logs",
+        td_r5_c1: "Community Mapping",
+        td_r5_c2: "Star rating & short review",
+        td_r5_c3: "Location report feature",
+        td_r5_c4: "None (One-way guide)",
+        td_r5_c5: "✓ Hourly tips & new tag suggestions",
+
+        roadmap_tag: "Execution Roadmap",
+        roadmap_title: "Phased Execution Plan",
+        roadmap_desc: "From hyper-local dense validation to Instagram editorial magazine and B2B partnerships",
+        stage1_tag: "Phase 1 · Current",
+        stage1_title: "Prototype Validation",
+        stage1_item1: "Curate & verify 30-50 core district venues",
+        stage1_item2: "Build core map, time interval search & AND multi-tag engine",
+        stage1_item3: "Display verification dates and user feedback forms",
+        stage1_item4: "Usability testing with target night-owl cohort",
+        stage2_tag: "Phase 2 · Upcoming",
+        stage2_title: "Public Beta Launch",
+        stage2_item1: "Expand catalog to 300+ vetted locations",
+        stage2_item2: "Enable participatory community mapping (tags, hourly reviews)",
+        stage2_item3: "Deep-link integration with Naver & Kakao Map routing",
+        stage2_item4: "Run on-site 'Night Supporters' verification squad",
+        stage3_tag: "Phase 3 · Scale",
+        stage3_title: "Expansion & Monetization",
+        stage3_item1: "Scale to Greater Seoul and major metropolitan areas",
+        stage3_item2: "Launch ALLNIGHT MAGAZINE editorial media",
+        stage3_item3: "Roll out late-night venue partnerships & local B2B ads",
+        stage3_item4: "Mobile web optimization and native PWA / app release",
+        mag_tag: "Content Expansion",
+        mag_title: "Launching ALLNIGHT MAGAZINE on Instagram",
+        mag_desc: "'2 AM secret spots in Hapjeong with laptop outlets', 'Midnight scenic drives paired with 24-hour bakeries'. Curated stories exploring urban nights to grow brand awareness and build a loyal night-owl community.",
+        mag_btn: "Follow Magazine Updates",
+
+        cta_title: "Be the First to Rediscover the City's Nights",
+        cta_desc: "ALLNIGHT stands for zero wasted trips.<br>Sign up for early beta access and uncover your secret late-night sanctuaries first.",
+        cta_submit: "Join Early Access",
+        cta_subtext: "No spam. Strictly service launch alerts and key updates only.",
+        email_placeholder: "Enter your email address",
+
+        footer_brand_desc: "Late-night service archive & community mapping platform.<br>A new benchmark connecting All Night & All + Night living.",
+        footer_col1_title: "Documents",
+        footer_doc1: "Project Proposal (261017_008)",
+        footer_doc2: "Market Analysis (market.md)",
+        footer_doc3: "User Research (user.md)",
+        footer_col2_title: "Core Search",
+        footer_nav1: "Time Range Filter",
+        footer_nav2: "Multi-Tag AND Search",
+        footer_nav3: "Data Freshness Verification",
+        footer_copyright: "© 2026 ALLNIGHT Team. All rights reserved. Official landing page based on project specs.",
+        footer_date: "Research Base: Oct 21, 2026 · Seoul Night Economy & User Research",
+
+        card_full_open: "Full Window Open",
+        card_partial_open: "Partial Hours Open",
+        card_directions: "Directions →",
+        card_verified_suffix: " Verified",
+        card_empty_msg: "🔍 No venues match your selected time and criteria.<br>Try relaxing tag filters or adjusting the visit time.",
+        toast_directions_suffix: " linked to Kakao/Naver Map directions",
+        toast_mag_msg: "ALLNIGHT MAGAZINE channel is coming soon!",
+        toast_early_access: "Registration complete! We'll notify you upon launch."
+      }
+    };
+
+    // Current language state
+    let currentLang = 'ko';
+
+    // Sample Places Data with English translations
     const mockPlaces = [
       {
         id: 1,
         name: "할리스 커피 신논현점",
+        name_en: "Hollys Coffee Sinnonhyeon",
         category: "식음료 · 카페",
+        category_en: "F&B · Cafe",
         openHour: 0,
-        closeHour: 24, // 24 hours
+        closeHour: 24,
         hoursText: "24시간 연중무휴 (새벽 상시 운영)",
+        hoursText_en: "24/7 All-Night Open",
         tags: ["laptop", "plug", "parking"],
         tagsText: ["노트북 작업", "콘센트 완비", "심야 주차", "24시간"],
-        verified: "2026.10.20 확인",
-        note: "지하 1층/1층 전 좌석 콘센트 설치, 심야 학습객 다수"
+        tagsText_en: ["Laptop Friendly", "Power Outlets", "Night Parking", "24 Hours"],
+        verified: "2026.10.20",
+        note: "지하 1층/1층 전 좌석 콘센트 설치, 심야 학습객 다수",
+        note_en: "Outlets at all B1/1F seats, popular late-night study atmosphere"
       },
       {
         id: 2,
         name: "더스테이션 24시 스터디카페 합정",
+        name_en: "The Station 24h Study Cafe Hapjeong",
         category: "학습 · 휴식",
+        category_en: "Study & Lounge",
         openHour: 0,
         closeHour: 24,
         hoursText: "24시간 무인 운영 (무인 키오스크)",
+        hoursText_en: "24/7 Unmanned Kiosk Access",
         tags: ["laptop", "plug", "quiet"],
         tagsText: ["노트북 작업", "콘센트 완비", "조용한 분위기"],
-        verified: "2026.10.21 확인",
-        note: "새벽 야간 냉난방 완비 검증 완료, 여성 안심존 분리"
+        tagsText_en: ["Laptop Friendly", "Power Outlets", "Quiet Space"],
+        verified: "2026.10.21",
+        note: "새벽 야간 냉난방 완비 검증 완료, 여성 안심존 분리",
+        note_en: "Verified 24h HVAC running, dedicated safe zone for solo women"
       },
       {
         id: 3,
         name: "공공심야 늘푸른약국 홍대입구",
+        name_en: "Evergreen Public Night Pharmacy Hongdae",
         category: "의료 · 긴급",
+        category_en: "Medical & Emergency",
         openHour: 20,
         closeHour: 29, // 20:00 ~ 05:00
         hoursText: "20:00 ~ 익일 05:00 (공공심야약국)",
+        hoursText_en: "20:00 ~ 05:00 (+1d) (Public Night Pharmacy)",
         tags: ["pharmacy", "parking"],
         tagsText: ["긴급/의료", "심야약국", "심야 주차"],
-        verified: "2026.10.19 확인",
-        note: "전문 복약지도 가능, 처방 조제 및 일반의약품 구비"
+        tagsText_en: ["Emergency/Medical", "Night Pharmacy", "Night Parking"],
+        verified: "2026.10.19",
+        note: "전문 복약지도 가능, 처방 조제 및 일반의약품 구비",
+        note_en: "Pharmacist on duty for night prescriptions and OTC meds"
       },
       {
         id: 4,
         name: "어반나이트 라운지 & 카페 성수",
+        name_en: "Urban Night Lounge & Cafe Seongsu",
         category: "식음료 · 카페",
+        category_en: "F&B · Cafe",
         openHour: 18,
         closeHour: 28, // 18:00 ~ 04:00
         hoursText: "18:00 ~ 익일 04:00 (라스트오더 03:20)",
+        hoursText_en: "18:00 ~ 04:00 (+1d) (Last Order 03:20)",
         tags: ["laptop", "plug"],
         tagsText: ["노트북 작업", "콘센트 완비", "감성 인테리어"],
-        verified: "2026.10.18 확인",
-        note: "조용한 심야 음악, Wi-Fi 6 지원, 디저트 주문 가능"
+        tagsText_en: ["Laptop Friendly", "Power Outlets", "Aesthetic Interior"],
+        verified: "2026.10.18",
+        note: "조용한 심야 음악, Wi-Fi 6 지원, 디저트 주문 가능",
+        note_en: "Lo-Fi ambient music, Wi-Fi 6, late-night desserts served"
       },
       {
         id: 5,
         name: "클린워시 24시 셀프 빨래방 & 북카페",
+        name_en: "CleanWash 24h Laundromat & Book Cafe",
         category: "생활편의",
+        category_en: "Everyday Living",
         openHour: 0,
         closeHour: 24,
         hoursText: "24시간 상시 운영",
+        hoursText_en: "24/7 Always Open",
         tags: ["plug", "quiet"],
         tagsText: ["콘센트 완비", "조용한 분위기", "무인 자판기"],
-        verified: "2026.10.15 확인",
-        note: "세탁 대기 테이블 콘센트 완비, 야간 CCTV 보안 작동"
+        tagsText_en: ["Power Outlets", "Quiet Space", "Vending Machine"],
+        verified: "2026.10.15",
+        note: "세탁 대기 테이블 콘센트 완비, 야간 CCTV 보안 작동",
+        note_en: "Outlets at waiting tables, active 24/7 CCTV surveillance"
       },
       {
         id: 6,
         name: "연희 심야서재 & 티하우스",
+        name_en: "Yeonhui Midnight Study & Teahouse",
         category: "학습 · 여가",
+        category_en: "Study & Leisure",
         openHour: 21,
         closeHour: 27, // 21:00 ~ 03:00
         hoursText: "21:00 ~ 익일 03:00",
+        hoursText_en: "21:00 ~ 03:00 (+1d)",
         tags: ["quiet", "plug"],
         tagsText: ["조용한 분위기", "콘센트 완비", "독서/사색"],
-        verified: "2026.10.17 확인",
-        note: "1인 체류 최적화, 속삭이는 대화만 허용, 차 무제한"
+        tagsText_en: ["Quiet Space", "Power Outlets", "Reading & Focus"],
+        verified: "2026.10.17",
+        note: "1인 체류 최적화, 속삭이는 대화만 허용, 차 무제한",
+        note_en: "Optimized for solo thinkers, whisper-only, unlimited tea refills"
       }
     ];
 
     // State
-    let selectedHour = 23; // slider value: 18 ~ 31 (31 = 07:00 next day)
+    let selectedHour = 23; // slider value: 18 ~ 31
     let activeTags = new Set(["laptop", "plug"]);
 
     // Elements
@@ -1745,12 +2223,14 @@
     const placesContainer = document.getElementById("placesContainer");
     const matchCount = document.getElementById("matchCount");
     const toast = document.getElementById("toast");
+    const emailInput = document.getElementById("emailInput");
 
-    // Format Hour helper (18 -> 18:00, 24 -> 00:00, 27 -> 03:00 (+1일))
+    // Format Hour helper (18 -> 18:00, 24 -> 00:00, 27 -> 03:00 (+1d))
     function formatHourLabel(h) {
+      const suffix = currentLang === 'ko' ? '(익일)' : '(+1d)';
       if (h < 24) return `${h}:00`;
       const nextH = h - 24;
-      return `${String(nextH).padStart(2, '0')}:00 (익일)`;
+      return `${String(nextH).padStart(2, '0')}:00 ${suffix}`;
     }
 
     // Format range string: [h, h+4]
@@ -1763,37 +2243,24 @@
     }
 
     // Check if place satisfies time
-    // For simplicity: target start ~ end
     function checkPlaceOpen(place, startH, endH) {
-      // If 24h
       if (place.openHour === 0 && place.closeHour === 24) return "full";
-
       const pStart = place.openHour;
       const pEnd = place.closeHour;
-
-      // Fully covered: pStart <= startH && pEnd >= endH
-      if (pStart <= startH && pEnd >= endH) {
-        return "full";
-      }
-      // Partially covered
-      if (Math.max(pStart, startH) < Math.min(pEnd, endH)) {
-        return "partial";
-      }
+      if (pStart <= startH && pEnd >= endH) return "full";
+      if (Math.max(pStart, startH) < Math.min(pEnd, endH)) return "partial";
       return "closed";
     }
 
     function renderPlaces() {
       const startH = Number(selectedHour);
       const endH = startH + 4;
+      const t = i18n[currentLang];
 
-      // Filter
       const matched = mockPlaces.filter(p => {
-        // Tag filter (AND logic)
-        for (const t of activeTags) {
-          if (!p.tags.includes(t)) return false;
+        for (const tg of activeTags) {
+          if (!p.tags.includes(tg)) return false;
         }
-
-        // Time check
         const openStatus = checkPlaceOpen(p, startH, endH);
         return openStatus !== "closed";
       });
@@ -1803,8 +2270,7 @@
       if (matched.length === 0) {
         placesContainer.innerHTML = `
           <div style="grid-column: 1 / -1; text-align:center; padding: 40px; color: var(--text-muted); background: rgba(0,0,0,0.2); border-radius: var(--radius-md);">
-            🔍 선택하신 시간(${timeDisplay.textContent})과 조건에 맞는 장소를 찾지 못했습니다.<br>
-            태그 조건을 줄이거나 다른 시간대로 변경해 보세요.
+            ${t.card_empty_msg}
           </div>
         `;
         return;
@@ -1813,30 +2279,77 @@
       placesContainer.innerHTML = matched.map(place => {
         const openStatus = checkPlaceOpen(place, startH, endH);
         const statusBadge = openStatus === "full" 
-          ? `<span class="place-status status-open">전체 영업 충족</span>`
-          : `<span class="place-status status-partial">일부 시간 영업</span>`;
+          ? `<span class="place-status status-open">${t.card_full_open}</span>`
+          : `<span class="place-status status-partial">${t.card_partial_open}</span>`;
+
+        const name = currentLang === 'ko' ? place.name : place.name_en;
+        const category = currentLang === 'ko' ? place.category : place.category_en;
+        const hoursText = currentLang === 'ko' ? place.hoursText : place.hoursText_en;
+        const note = currentLang === 'ko' ? place.note : place.note_en;
+        const tags = currentLang === 'ko' ? place.tagsText : place.tagsText_en;
+        const verifiedText = `✓ ${place.verified}${t.card_verified_suffix}`;
 
         return `
           <div class="place-item">
             <div class="place-top">
-              <span class="place-cat">${place.category}</span>
+              <span class="place-cat">${category}</span>
               ${statusBadge}
             </div>
-            <div class="place-name">${place.name}</div>
+            <div class="place-name">${name}</div>
             <div class="place-hours">
-              <span>🕒 ${place.hoursText}</span>
+              <span>🕒 ${hoursText}</span>
             </div>
-            <p style="font-size:0.8rem; color:#9CA3AF; margin-bottom:12px; line-height:1.4;">${place.note}</p>
+            <p style="font-size:0.8rem; color:#9CA3AF; margin-bottom:12px; line-height:1.4;">${note}</p>
             <div class="place-tags">
-              ${place.tagsText.map(t => `<span class="mini-tag">#${t}</span>`).join('')}
+              ${tags.map(tag => `<span class="mini-tag">#${tag}</span>`).join('')}
             </div>
             <div class="place-verified">
-              <span class="verified-mark">✓ ${place.verified}</span>
-              <span style="cursor:pointer; color:var(--accent-amber);" onclick="showToast('${place.name} 카카오/네이버 지도 길찾기 연동')">길찾기 →</span>
+              <span class="verified-mark">${verifiedText}</span>
+              <span style="cursor:pointer; color:var(--accent-amber);" onclick="showToast('${name}${t.toast_directions_suffix}')">${t.card_directions}</span>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    // Set Language (KO / EN)
+    function setLanguage(lang) {
+      if (!i18n[lang]) return;
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      // Update switcher active buttons
+      document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+
+      // Update text in elements with data-i18n
+      const dict = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      // Update placeholders
+      if (emailInput && dict.email_placeholder) {
+        emailInput.placeholder = dict.email_placeholder;
+      }
+
+      // Update document title
+      if (dict.page_title) {
+        document.title = dict.page_title;
+      }
+
+      // Update simulator time and items
+      updateTimeDisplay(selectedHour);
+      renderPlaces();
+
+      // Save preference
+      try {
+        localStorage.setItem('allnight_lang', lang);
+      } catch (e) {}
     }
 
     // Slider Event
@@ -1870,9 +2383,30 @@
       }, 3000);
     }
 
-    // Initialize
-    updateTimeDisplay(selectedHour);
-    renderPlaces();
+    function showMagazineToast() {
+      showToast(i18n[currentLang].toast_mag_msg);
+    }
+
+    function submitEarlyAccess(form) {
+      showToast(i18n[currentLang].toast_early_access);
+      form.reset();
+    }
+
+    // Initialize Language from localStorage or default 'ko'
+    const savedLang = (function() {
+      try {
+        return localStorage.getItem('allnight_lang');
+      } catch(e) {
+        return null;
+      }
+    })();
+
+    if (savedLang === 'en' || savedLang === 'ko') {
+      setLanguage(savedLang);
+    } else {
+      updateTimeDisplay(selectedHour);
+      renderPlaces();
+    }
   </script>
 </body>
 </html>
