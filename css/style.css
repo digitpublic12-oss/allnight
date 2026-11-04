@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 /* =============================================================
    ALLNIGHT — Global Design System
    Based on DESIGN.md (Allnight v1.0 · 2026-11-05)
@@ -216,6 +218,22 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* Nav right group */
+.nav-disabled {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: not-allowed;
+}
+
+.nav-soon {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+}
+
 .nav-right {
   display: flex;
   align-items: center;
@@ -1513,8 +1531,51 @@ th.col-highlight { background: rgba(245, 158, 11, 0.12); color: var(--accent-amb
   flex-wrap: wrap;
 }
 
-.expansion-info h4 { font-size: 1.4rem; font-weight: 800; color: #EDE9FE; margin-bottom: 8px; }
+.expansion-info h4 { font-size: 1.4rem; font-weight: 800; color: #EDE9FE; margin: 10px 0 8px; }
 .expansion-info p  { color: #C4B5FD; font-size: 0.95rem; max-width: 620px; }
+
+/* index.html 인라인 스타일 대체 */
+.section-alt { background: rgba(17, 24, 39, 0.3); }
+
+.voices-tags { font-size: 0.8rem; color: var(--accent-amber); font-weight: 600; }
+
+.preview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--color-text-sub-dark);
+}
+
+.preview-row-muted { font-size: 0.8rem; color: var(--text-secondary); }
+.preview-chips     { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.preview-inline    { display: flex; gap: 10px; font-size: 0.85rem; color: #E5E7EB; }
+
+.text-success { color: var(--success); font-weight: 700; }
+.text-warning { color: var(--accent-amber); }
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.demo-results-note { font-size: 0.8rem; color: var(--text-muted); }
+
+.places-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md-old);
+}
+
+.place-note { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4; }
+.place-directions { cursor: pointer; color: var(--accent-amber); }
+
+.btn-magazine { border-color: rgba(167, 139, 250, 0.4); color: #EDE9FE; }
 
 /* ───────────────────────────────────────────────────────────────
    21. CTA SECTION
@@ -1561,6 +1622,10 @@ th.col-highlight { background: rgba(245, 158, 11, 0.12); color: var(--accent-amb
   color: var(--text-muted);
 }
 
+.cta-badge { margin-bottom: 16px; }
+.email-signup .input { flex: 1; }
+.email-signup .btn-primary { white-space: nowrap; }
+
 /* ───────────────────────────────────────────────────────────────
    22. FOOTER
    ─────────────────────────────────────────────────────────────── */
@@ -1594,6 +1659,7 @@ th.col-highlight { background: rgba(245, 158, 11, 0.12); color: var(--accent-amb
 }
 
 .footer-meta-col h6 {
+  font-size: 0.85rem;
   color: var(--text-secondary);
   font-weight: var(--fw-semibold);
   margin-bottom: 12px;
@@ -1611,6 +1677,8 @@ th.col-highlight { background: rgba(245, 158, 11, 0.12); color: var(--accent-amb
 }
 
 .footer-meta-col a:hover { color: var(--text-primary); }
+
+.footer-brand-desc { max-width: 380px; margin-top: var(--space-2); line-height: 1.5; }
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
