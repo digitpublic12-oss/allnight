@@ -6,7 +6,7 @@
 ## 현재 요약
 
 - 기획 문서(PRD, SITEMAP, DB, DESIGN, AGENTS, 화면 명세 01~13) 작성 완료.
-- 랜딩페이지(`index.html`)의 스타일을 공통 CSS(`css/style.css`)로 분리하는 작업 완료, 커밋 전.
+- 랜딩페이지(`index.html`)의 스타일을 공통 CSS(`css/style.css`)로 분리하는 작업 완료 (커밋 `172ebaf`).
 - 실제 서비스(Next.js + Supabase) 개발은 아직 시작 전.
 
 ## 작업 목록
@@ -22,10 +22,11 @@
 - 생성 파일: `docs/PRD.md`, `docs/SITEMAP.md`, `docs/DB.md`, `docs/DESIGN.md`, `docs/AGENTS.md`, `docs/pages/01~13`
 - 남은 이슈: 없음 (`AGENTS.md` 문서 표의 "작성 예정" 표기를 실제 상태로 정정함)
 
-### 3. 랜딩페이지 CSS 분리 — 완료 (커밋 대기)
+### 3. 랜딩페이지 CSS 분리 — 완료
 
 - 목표: `index.html` 인라인 스타일을 `DESIGN.md` 기준 공통 CSS로 분리
-- 승인: 사용자 요청 ("다 해줘", 2026-11-05)
+- 승인: 사용자 요청 ("다 해줘", 2026-11-05), main 커밋 승인
+- 기록: 문서 커밋 `4fe9ffc`, CSS 커밋 `172ebaf`
 - 변경 파일: `index.html`, `css/style.css`
 - 내용:
   - 인라인 `<style>` 제거, `css/style.css` 연결 (상대경로 — 파일로 직접 열어도 적용)
@@ -45,6 +46,6 @@
 
 ## 다음 단계 후보
 
-1. 3번 작업 커밋
+1. 화면 직접 확인 (모바일·다크 모드·KO/EN 전환)
 2. 버튼 색상·데모 열 수 결정
 3. 서비스 개발 착수 계획 제출
