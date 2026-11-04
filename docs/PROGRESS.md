@@ -115,6 +115,24 @@
 - **발견한 문제와 해결:** 생성 도구 기본값 `cacheComponents`·`partialPrefetching`을 켠 상태로는 Cloudflare 런타임에서 요청이 멈춰 500 오류 → 두 옵션을 끄자 정상. 이 서비스는 해당 기능이 필요 없음
 - 검증: Cloudflare 런타임(wrangler 로컬)에서 `/` 200, 없는 주소 404, 런타임 오류 없음, 화면이 개발 서버와 동일. 타입 검사·린트(빌드 결과물 폴더 제외)·빌드 통과
 - 미검증: 실제 Cloudflare 계정 배포 (10단계에서, 별도 승인)
+- 기록: 커밋 `b648cb6`
+
+#### 5-3 Supabase 프로젝트 — 완료 (키 입력 `.env.local`은 대기)
+
+#### 5-4·5-5 핵심 테이블·접근 규칙·검색 함수 SQL — 완료
+
+- 승인: 사용자 승인 (2026-11-05)
+- 생성 파일 (Supabase SQL Editor에 순서대로 붙여넣어 실행):
+  1. `supabase/migrations/20261105000001_core_tables.sql` — PostGIS, 카테고리·태그·장소·정기 영업시간·날짜별 예외 테이블, 인덱스
+  2. `supabase/migrations/20261105000002_read_only_rls.sql` — 모든 테이블 RLS, 방문자 읽기 전용(쓰기 정책 없음)
+  3. `supabase/migrations/20261105000003_search_places.sql` — `place_coverage`(장소 하나 판정), `search_places`(검색·정렬)
+  4. `supabase/seed.sql` — 카테고리 8개, 기본 태그 5개, `[테스트]` 장소 5곳
+  5. `supabase/tests/search_cases.sql` — DB.md §4.4 필수 사례 10개 자동 판정 (pass 열)
+- `web/.env.example` — 필요한 설정 이름 (값은 사용자가 `.env.local`에 직접 입력)
+- 설계 메모: 영업 구간 병합은 PostgreSQL 범위 타입(`tstzmultirange`)으로 처리. 요일 행이 없으면 미확인으로 취급
+- 미루어 둔 것: 같은 날 구간끼리 겹침 검사(DB.md §6.2 트리거) — 지금은 대시보드 직접 입력이고 검색은 겹쳐도 병합되어 결과가 틀리지 않음. 관리자 화면을 만들 때 추가
+- 검증: 개발용 Supabase에서 1→2→3→seed→tests 순서로 실행 (2026-11-05, 사용자 실행). **DB.md §4.4 필수 사례 10개 모두 pass**
+- 실행 중 겪은 일: SQL Editor에 이전 파일 내용이 남은 채 실행해 "없음/이미 있음" 오류가 남 → 창을 비우고 파일 하나씩 실행하면 해결. Supabase가 ① 실행 전 "RLS 없는 테이블" 경고를 띄우는 것은 정상(RLS는 ②에서 설정)
 
 ## 다음 단계 후보
 
