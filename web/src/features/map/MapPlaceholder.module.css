@@ -1,0 +1,27 @@
+/* 지도는 전체 viewport 배경 (DESIGN.md §4). 패널(400px + 여백) 오른쪽 영역 기준으로 컨트롤을 배치한다. */
+.map {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-map);
+  background-image:
+    linear-gradient(var(--color-map-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-map-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.areaSearch {
+  position: absolute;
+  top: var(--space-4);
+  left: calc(var(--panel-width) + var(--space-8) + (100% - var(--panel-width) - var(--space-8)) / 2);
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-float);
+}
+
+.notice {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--panel-width) + var(--space-8) + (100% - var(--panel-width) - var(--space-8)) / 2);
+  transform: translate(-50%, -50%);
+  color: var(--color-text-sub);
+  font-size: var(--text-base);
+}

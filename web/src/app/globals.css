@@ -1,0 +1,176 @@
+/* ALLNIGHT 공통 스타일 — docs/DESIGN.md §2(토큰)·§3(테마)·§9(공통 컴포넌트) 기준.
+   색은 반드시 아래 변수로만 쓴다. 화면별 레이아웃은 각 기능 폴더의 *.module.css에 둔다. */
+
+:root {
+  /* 색상 (Light). [제안] 값은 DESIGN.md §2.1 보조 토큰 */
+  --color-primary: #2563eb;
+  --color-primary-soft: #eff6ff;
+  --color-bg: #f9fafb;
+  --color-panel: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text: #111827;
+  --color-text-sub: #6b7280;
+  --color-link: #2563eb;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fffbeb;
+  --color-warning-text: #92400e;
+  --color-map: #e8ecf1;
+  --color-map-line: #d6dce4;
+
+  /* 타이포그래피 (§2.2) */
+  --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  /* 간격·형태 (§2.3) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius: 6px;
+  --radius-pill: 9999px;
+  --ctrl-height: 36px;
+  --shadow-float: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --transition: 150ms ease;
+
+  --panel-width: 400px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary-soft: #1e3a8a33;
+    --color-bg: #111827;
+    --color-panel: #1f2937;
+    --color-border: #374151;
+    --color-text: #f9fafb;
+    --color-text-sub: #d1d5db;
+    --color-link: #93c5fd;
+    --color-warning: #fbbf24;
+    --color-warning-bg: #451a0333;
+    --color-warning-text: #fde68a;
+    --color-map: #0f172a;
+    --color-map-line: #1e293b;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---- 공통 컴포넌트 (§9) ---- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--ctrl-height);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-panel);
+  color: var(--color-text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-sub);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.input {
+  width: 100%;
+  height: var(--ctrl-height);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-panel);
+  transition: border-color var(--transition);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  height: 30px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-panel);
+  color: var(--color-text-sub);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-link);
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
