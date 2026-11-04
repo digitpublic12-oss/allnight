@@ -105,6 +105,16 @@
 - 검증: 타입 검사·린트·빌드 통과, 개발 서버 화면 확인(1440px Light/Dark, 900px 미지원 안내)
 - 미검증: 슬라이더·구간 모드·칩 클릭 등 상호작용은 직접 조작해 보지 않음
 - 남은 이슈: '현재 시각' 기본값 규칙 미확정 → 임시로 18:00 시작. 아이콘(Lucide)은 패키지 설치 승인 전이라 미사용. 테마 수동 전환·플로팅 메뉴는 시연 범위 밖
+- 기록: 커밋 `a427ced`
+
+#### 5-2 Cloudflare 호환성 확인 — 완료 (커밋 대기)
+
+- 승인: 사용자 승인 (2026-11-05)
+- 설치: `@opennextjs/cloudflare` 1.20.16 (Next.js 16.4.5를 지원하는 첫 버전), `wrangler` 4.151.0(개발용). npm 11의 설치 스크립트 차단으로 `workerd`·`esbuild` 설치 스크립트를 내용 확인 후 허용(`package.json` `allowScripts`)
+- 설정: `open-next.config.ts`(추가 Cloudflare 자원 없이 최소 구성 — 템플릿의 R2 캐시·이미지 바인딩 제외), `wrangler.jsonc`(이름 `allnight`), 스크립트 `npm run preview` / `npm run deploy`
+- **발견한 문제와 해결:** 생성 도구 기본값 `cacheComponents`·`partialPrefetching`을 켠 상태로는 Cloudflare 런타임에서 요청이 멈춰 500 오류 → 두 옵션을 끄자 정상. 이 서비스는 해당 기능이 필요 없음
+- 검증: Cloudflare 런타임(wrangler 로컬)에서 `/` 200, 없는 주소 404, 런타임 오류 없음, 화면이 개발 서버와 동일. 타입 검사·린트(빌드 결과물 폴더 제외)·빌드 통과
+- 미검증: 실제 Cloudflare 계정 배포 (10단계에서, 별도 승인)
 
 ## 다음 단계 후보
 

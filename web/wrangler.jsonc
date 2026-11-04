@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "allnight",
+  "main": ".open-next/worker.js",
+  // 설치된 workerd(1.20261012)가 지원하는 날짜 이하로 둔다
+  "compatibility_date": "2026-10-12",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  }
+}
