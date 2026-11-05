@@ -1,13 +1,19 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
-import { CATEGORIES, type Category } from "./categories";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { fetchCategories, searchPlaces, type CategoryRow, type PlaceResult } from "./searchPlaces";
+import SearchResults from "./SearchResults";
 import { MAX_SLOT, formatSlot, isNextDay, todayInSeoul } from "./time";
 import styles from "./SearchPanel.module.css";
 
 type TimeMode = "point" | "range";
+type ResultState = { state: "loading" } | { state: "error" } | { state: "done"; places: PlaceResult[] };
 
 const noSubscribe = () => () => {};
+const DEFAULT_START = 0;
+const DEFAULT_END = 8;
+// 슬라이더를 끄는 동안 요청이 몰리지 않도록, 마지막 조작 후 잠시 기다렸다가 검색한다 (DESIGN.md §6.1)
+const SEARCH_DELAY_MS = 250;
 
 function SlotLabel({ slot }: { slot: number }) {
   return (
@@ -20,20 +26,52 @@ function SlotLabel({ slot }: { slot: number }) {
 
 export default function SearchPanel() {
   const [query, setQuery] = useState("");
+  const [submittedQuery, setSubmittedQuery] = useState("");
   // 오늘 날짜는 브라우저에서만 읽는다. 빌드(사전 렌더링) 시점의 날짜가 굳어지지 않게 하기 위함.
   const today = useSyncExternalStore(noSubscribe, todayInSeoul, () => "");
   const [pickedDate, setPickedDate] = useState<string | null>(null);
   const date = pickedDate ?? today;
   const [mode, setMode] = useState<TimeMode>("point");
   // '현재 시각'을 기본값으로 쓰는 규칙은 30분 격자 처리 방식이 미확정이라(DESIGN.md §6.1) 우선 18:00에서 시작한다.
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(8);
-  const [selected, setSelected] = useState<Category[]>([]);
+  const [start, setStart] = useState(DEFAULT_START);
+  const [end, setEnd] = useState(DEFAULT_END);
+  const [categories, setCategories] = useState<CategoryRow[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [result, setResult] = useState<ResultState>({ state: "loading" });
+  const [retryCount, setRetryCount] = useState(0);
+  const latestRequest = useRef(0);
 
-  function toggleCategory(category: Category) {
-    setSelected((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
-    );
+  useEffect(() => {
+    fetchCategories()
+      .then(setCategories)
+      .catch(() => setCategories([]));
+  }, []);
+
+  useEffect(() => {
+    if (!date) return;
+    const timer = setTimeout(async () => {
+      // 늦게 도착한 이전 응답이 최신 결과를 덮어쓰지 않게 요청 번호로 구분한다
+      const requestId = ++latestRequest.current;
+      setResult({ state: "loading" });
+      try {
+        const places = await searchPlaces({
+          date,
+          mode,
+          start,
+          end,
+          categoryIds: selectedIds,
+          query: submittedQuery,
+        });
+        if (requestId === latestRequest.current) setResult({ state: "done", places });
+      } catch {
+        if (requestId === latestRequest.current) setResult({ state: "error" });
+      }
+    }, SEARCH_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [date, mode, start, end, selectedIds, submittedQuery, retryCount]);
+
+  function toggleCategory(id: string) {
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]));
   }
 
   function changeStart(value: number) {
@@ -45,6 +83,16 @@ export default function SearchPanel() {
     setEnd(Math.max(value, start + 1));
   }
 
+  function resetFilters() {
+    setQuery("");
+    setSubmittedQuery("");
+    setPickedDate(null);
+    setMode("point");
+    setStart(DEFAULT_START);
+    setEnd(DEFAULT_END);
+    setSelectedIds([]);
+  }
+
   return (
     <aside className={styles.panel} aria-label="장소 검색">
       <div className={styles.fixed}>
@@ -52,7 +100,14 @@ export default function SearchPanel() {
           <span aria-hidden="true">🌙</span> ALLNIGHT
         </h1>
 
-        <form className={styles.search} role="search" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className={styles.search}
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSubmittedQuery(query);
+          }}
+        >
           <label htmlFor="q" className="visually-hidden">
             장소명이나 주소로 검색
           </label>
@@ -60,9 +115,13 @@ export default function SearchPanel() {
             id="q"
             className="input"
             type="search"
-            placeholder="장소명, 주소로 검색"
+            placeholder="장소명, 주소로 검색 (Enter)"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              // 검색어를 모두 지우면 바로 전체 결과로 돌아간다
+              if (e.target.value === "") setSubmittedQuery("");
+            }}
           />
         </form>
 
@@ -150,15 +209,15 @@ export default function SearchPanel() {
             카테고리
           </h2>
           <div className={styles.chips}>
-            {CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <button
-                key={category}
+                key={category.id}
                 type="button"
                 className="chip"
-                aria-pressed={selected.includes(category)}
-                onClick={() => toggleCategory(category)}
+                aria-pressed={selectedIds.includes(category.id)}
+                onClick={() => toggleCategory(category.id)}
               >
-                {category}
+                {category.name}
               </button>
             ))}
           </div>
@@ -166,10 +225,13 @@ export default function SearchPanel() {
       </div>
 
       <div className={styles.results}>
-        <div className={styles.empty}>
-          <p className={styles.emptyTitle}>아직 표시할 장소가 없습니다</p>
-          <p className={styles.emptyText}>장소 데이터가 연결되면 이곳에 검색 결과가 표시됩니다.</p>
-        </div>
+        {result.state === "done" ? (
+          <SearchResults state="done" places={result.places} onReset={resetFilters} />
+        ) : result.state === "error" ? (
+          <SearchResults state="error" onRetry={() => setRetryCount((n) => n + 1)} />
+        ) : (
+          <SearchResults state="loading" />
+        )}
       </div>
     </aside>
   );
