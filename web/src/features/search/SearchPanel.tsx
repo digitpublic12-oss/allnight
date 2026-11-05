@@ -1,6 +1,8 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import PlaceDetailPanel from "@/features/place/PlaceDetailPanel";
 import { fetchCategories, searchPlaces, type CategoryRow, type PlaceResult } from "./searchPlaces";
 import SearchResults from "./SearchResults";
 import { MAX_SLOT, formatSlot, isNextDay, todayInSeoul } from "./time";
@@ -40,6 +42,26 @@ export default function SearchPanel() {
   const [result, setResult] = useState<ResultState>({ state: "loading" });
   const [retryCount, setRetryCount] = useState(0);
   const latestRequest = useRef(0);
+  // 장소 상세는 별도 페이지 이동 없이 같은 패널에서 전환하고, 주소(/place/ID)만 바꾼다 (SITEMAP.md §1).
+  // 주소에서 선택 장소를 읽으므로 브라우저 뒤로/앞으로 가기와 새로고침이 그대로 동작한다.
+  const pathname = usePathname();
+  const selectedId = pathname.startsWith("/place/") ? decodeURIComponent(pathname.slice("/place/".length)) : null;
+  const openedFromList = useRef(false);
+
+  function openPlace(id: string) {
+    openedFromList.current = true;
+    window.history.pushState(null, "", `/place/${id}`);
+  }
+
+  function closePlace() {
+    if (openedFromList.current) {
+      openedFromList.current = false;
+      window.history.back();
+    } else {
+      // 상세 주소로 바로 들어온 경우엔 돌아갈 목록 기록이 없으므로 주소만 바꾼다
+      window.history.replaceState(null, "", "/");
+    }
+  }
 
   useEffect(() => {
     fetchCategories()
@@ -95,6 +117,17 @@ export default function SearchPanel() {
 
   return (
     <aside className={styles.panel} aria-label="장소 검색">
+      {selectedId && (
+        <PlaceDetailPanel
+          key={selectedId}
+          placeId={selectedId}
+          timeWindow={{ date, mode, start, end }}
+          today={today}
+          onBack={closePlace}
+        />
+      )}
+      {/* 상세를 보는 동안에도 검색 화면을 지우지 않고 숨겨 둔다 → 돌아오면 조건·스크롤이 그대로 */}
+      <div className={styles.searchView} hidden={selectedId !== null}>
       <div className={styles.fixed}>
         <h1 className={styles.logo}>
           <span aria-hidden="true">🌙</span> ALLNIGHT
@@ -226,12 +259,13 @@ export default function SearchPanel() {
 
       <div className={styles.results}>
         {result.state === "done" ? (
-          <SearchResults state="done" places={result.places} onReset={resetFilters} />
+          <SearchResults state="done" places={result.places} onReset={resetFilters} onSelect={openPlace} />
         ) : result.state === "error" ? (
           <SearchResults state="error" onRetry={() => setRetryCount((n) => n + 1)} />
         ) : (
           <SearchResults state="loading" />
         )}
+      </div>
       </div>
     </aside>
   );

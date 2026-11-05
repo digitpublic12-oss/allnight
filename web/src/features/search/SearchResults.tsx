@@ -18,7 +18,7 @@ const VERIFICATION_LABEL = {
 type Props =
   | { state: "loading" }
   | { state: "error"; onRetry: () => void }
-  | { state: "done"; places: PlaceResult[]; onReset: () => void };
+  | { state: "done"; places: PlaceResult[]; onReset: () => void; onSelect: (id: string) => void };
 
 export default function SearchResults(props: Props) {
   if (props.state === "loading") {
@@ -68,7 +68,8 @@ export default function SearchResults(props: Props) {
               {items.map((place) => {
                 const verification = VERIFICATION_LABEL[place.verification_status];
                 return (
-                  <li key={place.id} className={styles.row}>
+                  <li key={place.id}>
+                    <button type="button" className={styles.row} onClick={() => props.onSelect(place.id)}>
                     <div className={styles.rowTop}>
                       <span className={styles.name} title={place.name}>
                         {place.name}
@@ -86,6 +87,7 @@ export default function SearchResults(props: Props) {
                         {place.last_verified_at && place.is_older_than_30_days && "정보 오래됨 (30일 이상 미확인)"}
                       </p>
                     )}
+                    </button>
                   </li>
                 );
               })}

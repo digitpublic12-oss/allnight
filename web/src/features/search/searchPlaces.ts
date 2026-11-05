@@ -42,13 +42,21 @@ export async function fetchCategories(): Promise<CategoryRow[]> {
   return data;
 }
 
-export async function searchPlaces(input: SearchInput): Promise<PlaceResult[]> {
+export type TimeWindow = Pick<SearchInput, "date" | "mode" | "start" | "end">;
+
+// 선택한 시간을 DB가 받는 [시작, 종료) 구간으로 바꾼다.
+// '특정 시각'은 그 시각부터 1분 구간으로 묻는다.
+export function toSearchWindow(input: TimeWindow): { startAt: string; endAt: string } {
   const startAt = slotToIso(input.date, input.start);
-  // '특정 시각'은 그 시각부터 1분 구간으로 묻는다. DB는 [시작, 종료) 구간만 받기 때문.
   const endAt =
     input.mode === "range"
       ? slotToIso(input.date, input.end)
       : new Date(new Date(startAt).getTime() + 60_000).toISOString();
+  return { startAt, endAt };
+}
+
+export async function searchPlaces(input: SearchInput): Promise<PlaceResult[]> {
+  const { startAt, endAt } = toSearchWindow(input);
 
   const { data, error } = await db.rpc("search_places", {
     p_start: startAt,

@@ -15,6 +15,17 @@
   overflow: hidden;
 }
 
+.searchView {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.searchView[hidden] {
+  display: none;
+}
+
 .fixed {
   display: flex;
   flex-direction: column;
