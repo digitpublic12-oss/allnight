@@ -173,3 +173,15 @@
 - 기록: `feat/stage5-setup`을 `main`에 fast-forward 후 push (`7ce94e3..9ac980e`). Workers Builds 결과 success, 사용자가 배포 주소에서 화면 확인
 - 바뀐 점: 배포 주소의 화면이 옛 랜딩페이지 → 새 사이트(검색 화면). 랜딩페이지 파일(`index.html`, `css/`)은 저장소에 남아 있음
 - 남은 것: 운영용 Supabase 분리(AGENTS.md §9, 지금은 개발 DB 사용), 네이버 지도 키 등록 시 배포 주소도 서비스 URL에 추가
+
+### 9. 로그인·제보(회원/비회원)·관리자 페이지 — 진행 중 (브랜치 `feat/auth-submissions`)
+
+- 승인: 사용자 승인 (2026-11-05). 계획 S1 DB → S2 로그인 → S3 제보(Turnstile) → S4 관리자 → S5 점검·배포
+- 시연 범위 조정: 지도 없이 진행 — 제보는 주소를 글자로 받고, 신규 장소 좌표는 관리자가 승인할 때 입력
+
+#### S1 DB (회원·제보·관리자) — 완료 (커밋 대기)
+
+- 파일: `supabase/migrations/20261105000004_auth_submissions_admin.sql` (사용자가 SQL Editor에서 실행. Supabase 연결 도구의 직접 적용은 확인 창을 띄울 수 없어 자동 거절됨)
+- 내용: `profiles`(가입 시 랜덤 닉네임 자동 생성, 회원은 닉네임만 수정 가능), `is_admin()`, `submissions`(사이트에서 직접 넣기 불가, 회원은 본인 것만 조회), `verification_history`·`place_change_history`(관리자만 조회), 관리자 함수 `approve_submission`·`reject_submission`·`admin_save_place`·`admin_mark_verified`·`admin_set_place_hidden`(모두 관리자 확인 후 실행, 변경 전후 기록). 장소 테이블은 여전히 사이트에서 읽기 전용
+- 검증 (연결 도구로 읽기 조회 + 방문자 권한 REST 시험): 테이블 4개 RLS 켜짐, 가입 트리거 존재, 방문자 → 관리자 함수 호출 거부·제보함 직접 넣기 거부·회원 목록 조회 거부, 회원 → role 수정 권한 없음, 기존 검색 정상
+- 보안 점검 경고 7건(로그인 사용자가 관리자 함수 호출 가능) — 의도된 것: 함수 안에서 관리자 여부를 다시 확인해 거부함. 관리자 승인 실제 동작은 S4에서 관리자 계정으로 시험
