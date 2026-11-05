@@ -164,3 +164,12 @@
 - 빼 둔 것(시연 범위 밖): 리뷰, 실제 영업 여부 제보, 정보 수정 제보, 대표 사진, 지도 핀 이동, '영업 여부 제보 있음'·'수정 제보 검토 중' 경고(관련 테이블 없음)
 - 검증: 타입 검사·린트·빌드 통과. 화면 확인 — 스터디카페 상세(영업 중, 30일 경고, 11/6 임시 휴무 안내, 오늘 09:00~익일 01:00), 잘못된 ID → '장소를 찾을 수 없습니다'
 - 미검증: 목록 클릭 → 상세 → 뒤로가기 흐름, 주간 시간표 펼치기, 주소 복사(직접 조작 필요). Cloudflare 미리보기에서 `/place/ID`(서버 렌더링 경로) 동작은 배포 전 확인
+
+### 8. 핸드북 10단계 (배포) — 1차 완료
+
+- 승인: 사용자 승인 (2026-11-05, "니가 올려봐 깃헙")
+- 방식: 기존 GitHub ↔ Cloudflare Workers Builds 연결(서비스 이름 `allnight`) 그대로 사용. `main`에 올리면 자동 빌드·배포
+- Cloudflare 설정(사용자가 대시보드에서 변경): Root directory `web`, Build `npx opennextjs-cloudflare build`, Deploy `npx opennextjs-cloudflare deploy`, Build 변수 `NEXT_PUBLIC_SUPABASE_URL`·`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- 기록: `feat/stage5-setup`을 `main`에 fast-forward 후 push (`7ce94e3..9ac980e`). Workers Builds 결과 success, 사용자가 배포 주소에서 화면 확인
+- 바뀐 점: 배포 주소의 화면이 옛 랜딩페이지 → 새 사이트(검색 화면). 랜딩페이지 파일(`index.html`, `css/`)은 저장소에 남아 있음
+- 남은 것: 운영용 Supabase 분리(AGENTS.md §9, 지금은 개발 DB 사용), 네이버 지도 키 등록 시 배포 주소도 서비스 URL에 추가
