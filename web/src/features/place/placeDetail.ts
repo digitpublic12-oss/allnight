@@ -26,6 +26,7 @@ export type PlaceDetail = {
   longitude: number;
   verification_status: "verified" | "needs_check" | "unverified";
   last_verified_at: string | null;
+  deleted_at: string | null;
   categories: { name: string } | null;
   place_tags: { tag_id: string; tags: { name: string } | null }[];
   place_regular_day_status: { weekday: number; status: DayStatus; place_regular_intervals: Interval[] }[];
@@ -36,7 +37,7 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{
 
 const DETAIL_COLUMNS = `
   id, name, address_full, address_road, address_detail, province, city_district, neighborhood,
-  category_id, phone, website_url, latitude, longitude, verification_status, last_verified_at,
+  category_id, phone, website_url, latitude, longitude, verification_status, last_verified_at, deleted_at,
   categories(name),
   place_tags(tag_id, tags(name)),
   place_regular_day_status(weekday, status, place_regular_intervals(start_time, end_time, end_day_offset, sort_order)),
