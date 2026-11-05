@@ -185,3 +185,10 @@
 - 내용: `profiles`(가입 시 랜덤 닉네임 자동 생성, 회원은 닉네임만 수정 가능), `is_admin()`, `submissions`(사이트에서 직접 넣기 불가, 회원은 본인 것만 조회), `verification_history`·`place_change_history`(관리자만 조회), 관리자 함수 `approve_submission`·`reject_submission`·`admin_save_place`·`admin_mark_verified`·`admin_set_place_hidden`(모두 관리자 확인 후 실행, 변경 전후 기록). 장소 테이블은 여전히 사이트에서 읽기 전용
 - 검증 (연결 도구로 읽기 조회 + 방문자 권한 REST 시험): 테이블 4개 RLS 켜짐, 가입 트리거 존재, 방문자 → 관리자 함수 호출 거부·제보함 직접 넣기 거부·회원 목록 조회 거부, 회원 → role 수정 권한 없음, 기존 검색 정상
 - 보안 점검 경고 7건(로그인 사용자가 관리자 함수 호출 가능) — 의도된 것: 함수 안에서 관리자 여부를 다시 확인해 거부함. 관리자 승인 실제 동작은 S4에서 관리자 계정으로 시험
+
+#### S2 로그인 — 완료
+
+- 사전 설정(사용자): Supabase Auth의 Confirm email 끔 (실습 기간 한정, 공개 운영 시 다시 켜고 메일 서버 연결)
+- 만든 것: `features/auth/AuthProvider.tsx`(앱 전체 로그인 상태·프로필·토스트, 로그인 후 원래 작업 이어가기 콜백), `AuthModal.tsx`(중앙 모달 로그인/회원가입 탭, ESC·배경·✕로 닫기, 포커스 복원, 05_auth_modal.md §4 오류 문구), `features/shell/TopMenu.tsx`(우측 상단 [로그인] / [닉네임 ▾ → 로그아웃], 관리자 링크 없음). 로그인 상태는 브라우저에 저장(새로고침 유지)
+- 검증: 타입 검사·린트·빌드 통과. 사용자가 실제 가입·로그인 → `profiles`에 랜덤 닉네임(달빛부엉이225)·`member`로 자동 생성 확인(읽기 조회)
+- 관리자 지정: 사용자가 SQL Editor에서 해당 계정 `role = 'admin'`으로 변경, 조회로 확인

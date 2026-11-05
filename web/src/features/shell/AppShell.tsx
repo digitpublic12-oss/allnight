@@ -1,5 +1,6 @@
 import MapPlaceholder from "@/features/map/MapPlaceholder";
 import SearchPanel from "@/features/search/SearchPanel";
+import TopMenu from "./TopMenu";
 import styles from "./AppShell.module.css";
 
 // `/`와 `/place/:placeId`가 같은 화면을 쓴다. 어떤 패널을 보일지는 SearchPanel이 주소를 보고 정한다.
@@ -9,6 +10,7 @@ export default function AppShell() {
       <main className={styles.shell}>
         <MapPlaceholder />
         <SearchPanel />
+        <TopMenu />
       </main>
       <div className={styles.unsupported} role="alert">
         <p>

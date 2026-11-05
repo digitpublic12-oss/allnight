@@ -10,7 +10,7 @@ if (!url || !key) {
   );
 }
 
-// 로그인 기능이 없으므로 세션을 저장하지 않는다.
+// 로그인 상태는 브라우저에 저장해 새로고침해도 유지한다. 권한 확인은 DB(RLS·관리자 함수)가 한다.
 export const db = createClient(url, key, {
-  auth: { persistSession: false, autoRefreshToken: false },
+  auth: { persistSession: true, autoRefreshToken: true },
 });
