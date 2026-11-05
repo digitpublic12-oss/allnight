@@ -216,3 +216,14 @@
 - 검증: 타입 검사·린트·빌드 통과. 비로그인 `/admin` → 로그인 안내 화면. 비관리자 회원으로 가장해 승인 함수 호출 → "관리자만 할 수 있는 작업입니다" 거부(트랜잭션 롤백). 사용자 실제 승인 → 수정 제보는 전화번호 칸만 반영·검증 상태 유지, 신규 제보는 공개 장소로 생성(좌표·위치·7개 요일 저장, 미확인), 변경 이력 2건 기록
 - 미검증: 실제로 확인함, 숨기기·되살리기, 장소 편집 저장, 반려 (S5에서 확인)
 - 제외: 날짜별 예외 편집, 사진, 리뷰·카테고리·태그 관리 화면
+
+#### S5 점검·배포 — 진행 중
+
+- 기능 시험(사용자): 실제로 확인함·숨기기·반려 확인. 되살리기·편집 저장은 미검증 ("(테스트)" 장소는 숨김 상태로 남아 있음)
+- 보안 시험: 방문자 11개·회원 10개 모두 막힘, 제보 API 거부 시험 통과 → `docs/TEST.md` (핸드북 9단계 산출물)
+- Cloudflare 실행 확인: OpenNext 빌드 성공(12개 경로), wrangler 로컬 실행에서 페이지 5개 200·제보 API 정상 응답
+- Cloudflare 설정 (Claude가 `wrangler login` 후 진행, 사용자 브라우저 승인)
+  - 비밀값 `TURNSTILE_SECRET_KEY`·`SUPABASE_SECRET_KEY`를 Worker Secret으로 등록 (값은 화면·채팅에 출력하지 않음)
+  - 공개값 3개는 `web/.env.production`에 넣어 저장소로 관리 (대시보드 Builds 변수에 의존하지 않음)
+  - Turnstile 위젯 허용 주소 확인: `allnight.digitpublic12.workers.dev`, `localhost`
+- 배포 주소: https://allnight.digitpublic12.workers.dev
