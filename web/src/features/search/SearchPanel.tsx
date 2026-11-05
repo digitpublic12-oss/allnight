@@ -3,12 +3,33 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import PlaceDetailPanel from "@/features/place/PlaceDetailPanel";
+import { goBack, navigate } from "@/features/shell/navigation";
+import MySubmissionsPanel from "@/features/submission/MySubmissionsPanel";
+import SubmissionPanel from "@/features/submission/SubmissionPanel";
 import { fetchCategories, searchPlaces, type CategoryRow, type PlaceResult } from "./searchPlaces";
 import SearchResults from "./SearchResults";
 import { MAX_SLOT, formatSlot, isNextDay, todayInSeoul } from "./time";
 import styles from "./SearchPanel.module.css";
 
 type TimeMode = "point" | "range";
+
+// 주소 → 왼쪽 패널에 보일 화면 (SITEMAP.md §3)
+type View =
+  | { kind: "search" }
+  | { kind: "place"; placeId: string }
+  | { kind: "correction"; placeId: string }
+  | { kind: "submit" }
+  | { kind: "mySubmissions" };
+
+function viewFromPath(pathname: string): View {
+  const correction = pathname.match(/^\/place\/([^/]+)\/correct\/?$/);
+  if (correction) return { kind: "correction", placeId: decodeURIComponent(correction[1]) };
+  const place = pathname.match(/^\/place\/([^/]+)\/?$/);
+  if (place) return { kind: "place", placeId: decodeURIComponent(place[1]) };
+  if (pathname.startsWith("/submit")) return { kind: "submit" };
+  if (pathname.startsWith("/my/submissions")) return { kind: "mySubmissions" };
+  return { kind: "search" };
+}
 type ResultState = { state: "loading" } | { state: "error" } | { state: "done"; places: PlaceResult[] };
 
 const noSubscribe = () => () => {};
@@ -42,26 +63,9 @@ export default function SearchPanel() {
   const [result, setResult] = useState<ResultState>({ state: "loading" });
   const [retryCount, setRetryCount] = useState(0);
   const latestRequest = useRef(0);
-  // 장소 상세는 별도 페이지 이동 없이 같은 패널에서 전환하고, 주소(/place/ID)만 바꾼다 (SITEMAP.md §1).
-  // 주소에서 선택 장소를 읽으므로 브라우저 뒤로/앞으로 가기와 새로고침이 그대로 동작한다.
-  const pathname = usePathname();
-  const selectedId = pathname.startsWith("/place/") ? decodeURIComponent(pathname.slice("/place/".length)) : null;
-  const openedFromList = useRef(false);
-
-  function openPlace(id: string) {
-    openedFromList.current = true;
-    window.history.pushState(null, "", `/place/${id}`);
-  }
-
-  function closePlace() {
-    if (openedFromList.current) {
-      openedFromList.current = false;
-      window.history.back();
-    } else {
-      // 상세 주소로 바로 들어온 경우엔 돌아갈 목록 기록이 없으므로 주소만 바꾼다
-      window.history.replaceState(null, "", "/");
-    }
-  }
+  // 상세·제보 화면은 별도 페이지 이동 없이 같은 패널에서 전환하고 주소만 바꾼다 (SITEMAP.md §1).
+  // 주소에서 화면을 읽으므로 브라우저 뒤로/앞으로 가기와 새로고침이 그대로 동작한다.
+  const view = viewFromPath(usePathname());
 
   useEffect(() => {
     fetchCategories()
@@ -117,17 +121,30 @@ export default function SearchPanel() {
 
   return (
     <aside className={styles.panel} aria-label="장소 검색">
-      {selectedId && (
+      {view.kind === "place" && (
         <PlaceDetailPanel
-          key={selectedId}
-          placeId={selectedId}
+          key={view.placeId}
+          placeId={view.placeId}
           timeWindow={{ date, mode, start, end }}
           today={today}
-          onBack={closePlace}
+          onBack={() => goBack()}
+          onCorrect={() => navigate(`/place/${view.placeId}/correct`)}
         />
       )}
-      {/* 상세를 보는 동안에도 검색 화면을 지우지 않고 숨겨 둔다 → 돌아오면 조건·스크롤이 그대로 */}
-      <div className={styles.searchView} hidden={selectedId !== null}>
+      {view.kind === "correction" && (
+        <SubmissionPanel
+          key={view.placeId}
+          mode="correction"
+          placeId={view.placeId}
+          onBack={() => goBack(`/place/${view.placeId}`)}
+        />
+      )}
+      {view.kind === "submit" && (
+        <SubmissionPanel mode="new" onBack={() => goBack()} onOpenCorrection={(id) => navigate(`/place/${id}/correct`)} />
+      )}
+      {view.kind === "mySubmissions" && <MySubmissionsPanel onBack={() => goBack()} />}
+      {/* 다른 화면을 보는 동안에도 검색 화면을 지우지 않고 숨겨 둔다 → 돌아오면 조건·스크롤이 그대로 */}
+      <div className={styles.searchView} hidden={view.kind !== "search"}>
       <div className={styles.fixed}>
         <h1 className={styles.logo}>
           <span aria-hidden="true">🌙</span> ALLNIGHT
@@ -259,7 +276,7 @@ export default function SearchPanel() {
 
       <div className={styles.results}>
         {result.state === "done" ? (
-          <SearchResults state="done" places={result.places} onReset={resetFilters} onSelect={openPlace} />
+          <SearchResults state="done" places={result.places} onReset={resetFilters} onSelect={(id) => navigate(`/place/${id}`)} />
         ) : result.state === "error" ? (
           <SearchResults state="error" onRetry={() => setRetryCount((n) => n + 1)} />
         ) : (

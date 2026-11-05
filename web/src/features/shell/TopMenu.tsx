@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/features/auth/AuthProvider";
+import { navigate } from "./navigation";
 import styles from "./TopMenu.module.css";
 
 // 지도 위 우측 상단 플로팅 메뉴 (SITEMAP.md §1). 관리자 메뉴는 일반 화면에 노출하지 않는다.
@@ -31,6 +32,10 @@ export default function TopMenu() {
 
   return (
     <nav className={styles.menu} aria-label="사용자 메뉴">
+      {/* 비회원도 로그인 없이 제보할 수 있다 (PRD 제품 원칙 3) */}
+      <button type="button" className={`btn ${styles.float}`} onClick={() => navigate("/submit")}>
+        장소 제보
+      </button>
       {user ? (
         <div className={styles.account} ref={menuRef}>
           <button
@@ -45,6 +50,16 @@ export default function TopMenu() {
           {open && (
             <div className={styles.dropdown} role="menu">
               <p className={styles.email}>{user.email}</p>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/my/submissions");
+                }}
+              >
+                내 제보
+              </button>
               <button
                 type="button"
                 role="menuitem"

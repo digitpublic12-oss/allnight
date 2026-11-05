@@ -192,3 +192,13 @@
 - 만든 것: `features/auth/AuthProvider.tsx`(앱 전체 로그인 상태·프로필·토스트, 로그인 후 원래 작업 이어가기 콜백), `AuthModal.tsx`(중앙 모달 로그인/회원가입 탭, ESC·배경·✕로 닫기, 포커스 복원, 05_auth_modal.md §4 오류 문구), `features/shell/TopMenu.tsx`(우측 상단 [로그인] / [닉네임 ▾ → 로그아웃], 관리자 링크 없음). 로그인 상태는 브라우저에 저장(새로고침 유지)
 - 검증: 타입 검사·린트·빌드 통과. 사용자가 실제 가입·로그인 → `profiles`에 랜덤 닉네임(달빛부엉이225)·`member`로 자동 생성 확인(읽기 조회)
 - 관리자 지정: 사용자가 SQL Editor에서 해당 계정 `role = 'admin'`으로 변경, 조회로 확인
+
+#### S3 제보(회원·비회원) — 완료
+
+- 사전 설정(사용자): Cloudflare Turnstile 위젯 생성(호스트 localhost·배포 도메인), `web/.env.local`에 `NEXT_PUBLIC_TURNSTILE_SITE_KEY`·`TURNSTILE_SECRET_KEY`·`SUPABASE_SECRET_KEY`(서버 전용) 입력. 두 비밀값은 값 출력 없이 형식·실제 동작(읽기 요청, 가짜 토큰 확인)만 검사
+- 만든 것
+  - `app/api/submissions/route.ts` — 크기 제한 → Turnstile → 회원 토큰 확인 → 입력 검사 → 카테고리·태그·장소 존재 확인 → 회원 1시간 20건 제한 → `submissions` 저장(서버 전용 키). 공개 `places`에는 만들지 않음
+  - `features/submission/validate.ts`(화면·서버 공용 입력 규칙, 허용 칸만 남김), `HoursEditor`(요일별 상태·구간, 24시간·월요일 복사, 자동 익일), `Turnstile`, `SubmissionPanel`(신규/수정 공용 폼, 유사 장소 안내, 수정은 바뀐 칸만 전송, 작성 중 이탈 확인, 오류 칸으로 이동), `MySubmissionsPanel`(회원 본인 제보 상태·반려 사유)
+  - 주소: `/submit`, `/place/ID/correct`, `/my/submissions` (새로고침 지원). 우측 상단 [장소 제보], 계정 메뉴 '내 제보', 상세의 [정보 수정 제보]. `features/shell/navigation.ts`로 [뒤로]가 사이트 밖으로 나가지 않게 함
+- 검증: 타입 검사·린트·빌드 통과. API에 잘못된 형식·과대 요청·Turnstile 없음·가짜 토큰 → 모두 거부, 제보함 0건 유지. 사용자 실제 제출 → 비회원 신규 제보 1건(전체 칸), 회원 수정 제보 1건(전화번호 칸만) 저장, 공개 장소 수 변화 없음(5곳)
+- 남은 것: 주소 검색·좌표 자동 입력은 지도 연결 시. 비회원 요청 제한은 Turnstile에 의존(IP별 제한 없음)

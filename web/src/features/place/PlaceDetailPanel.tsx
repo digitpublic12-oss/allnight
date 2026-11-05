@@ -31,6 +31,7 @@ type Props = {
   timeWindow: TimeWindow;
   today: string;
   onBack: () => void;
+  onCorrect: () => void;
 };
 
 function formatVerifiedDate(iso: string): string {
@@ -49,7 +50,7 @@ function isOlderThan30Days(iso: string | null): boolean {
   return Date.now() - new Date(iso).getTime() > 30 * 24 * 60 * 60 * 1000;
 }
 
-export default function PlaceDetailPanel({ placeId, timeWindow, today, onBack }: Props) {
+export default function PlaceDetailPanel({ placeId, timeWindow, today, onBack, onCorrect }: Props) {
   const [load, setLoad] = useState<LoadState>({ state: "loading" });
   const [retryCount, setRetryCount] = useState(0);
   const [weekOpen, setWeekOpen] = useState(false);
@@ -128,8 +129,17 @@ export default function PlaceDetailPanel({ placeId, timeWindow, today, onBack }:
         </div>
       )}
 
-      {load.state === "done" && <DetailBody {...load} today={today} copied={copied} weekOpen={weekOpen}
-        onToggleWeek={() => setWeekOpen((v) => !v)} onCopy={copyAddress} />}
+      {load.state === "done" && (
+        <DetailBody
+          {...load}
+          today={today}
+          copied={copied}
+          weekOpen={weekOpen}
+          onToggleWeek={() => setWeekOpen((v) => !v)}
+          onCopy={copyAddress}
+          onCorrect={onCorrect}
+        />
+      )}
     </div>
   );
 }
@@ -142,9 +152,10 @@ type BodyProps = {
   weekOpen: boolean;
   onToggleWeek: () => void;
   onCopy: (address: string) => void;
+  onCorrect: () => void;
 };
 
-function DetailBody({ place, coverage, today, copied, weekOpen, onToggleWeek, onCopy }: BodyProps) {
+function DetailBody({ place, coverage, today, copied, weekOpen, onToggleWeek, onCopy, onCorrect }: BodyProps) {
   const status = COVERAGE[coverage];
   const todayHours = todaySummary(place, today);
   const upcoming = place.place_special_days
@@ -188,6 +199,9 @@ function DetailBody({ place, coverage, today, copied, weekOpen, onToggleWeek, on
         >
           네이버 지도에서 보기
         </a>
+        <button type="button" className="btn" onClick={onCorrect}>
+          정보 수정 제보
+        </button>
       </div>
 
       <section className={styles.section} aria-labelledby="hours-title">

@@ -16,6 +16,10 @@ export type PlaceDetail = {
   address_full: string;
   address_road: string | null;
   address_detail: string | null;
+  province: string;
+  city_district: string;
+  neighborhood: string | null;
+  category_id: string;
   phone: string | null;
   website_url: string | null;
   latitude: number;
@@ -23,7 +27,7 @@ export type PlaceDetail = {
   verification_status: "verified" | "needs_check" | "unverified";
   last_verified_at: string | null;
   categories: { name: string } | null;
-  place_tags: { tags: { name: string } | null }[];
+  place_tags: { tag_id: string; tags: { name: string } | null }[];
   place_regular_day_status: { weekday: number; status: DayStatus; place_regular_intervals: Interval[] }[];
   place_special_days: { local_date: string; status: DayStatus; note: string | null; place_special_intervals: Interval[] }[];
 };
@@ -31,10 +35,10 @@ export type PlaceDetail = {
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const DETAIL_COLUMNS = `
-  id, name, address_full, address_road, address_detail, phone, website_url,
-  latitude, longitude, verification_status, last_verified_at,
+  id, name, address_full, address_road, address_detail, province, city_district, neighborhood,
+  category_id, phone, website_url, latitude, longitude, verification_status, last_verified_at,
   categories(name),
-  place_tags(tags(name)),
+  place_tags(tag_id, tags(name)),
   place_regular_day_status(weekday, status, place_regular_intervals(start_time, end_time, end_day_offset, sort_order)),
   place_special_days(local_date, status, note, place_special_intervals(start_time, end_time, end_day_offset, sort_order))
 `;
@@ -64,4 +68,12 @@ export async function fetchCoverage(placeId: string, window: TimeWindow): Promis
   });
   if (error) throw error;
   return (data as { coverage_status: CoverageStatus }[])[0].coverage_status;
+}
+
+export type TagRow = { id: string; name: string };
+
+export async function fetchTags(): Promise<TagRow[]> {
+  const { data, error } = await db.from("tags").select("id, name").order("sort_order");
+  if (error) throw error;
+  return data;
 }
