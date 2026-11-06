@@ -240,4 +240,5 @@
   - 문서: CLAUDE.md, AGENTS.md, PRD.md, SITEMAP.md, DB.md, DESIGN.md, pages/01·02·03·04·12의 지도 표기를 카카오로 변경. `naver_place_id` 컬럼·관련 설명(DB.md, 08_admin_place_edit.md)은 DB 변경이 필요해 그대로 둠, market.md(경쟁 서비스 분석)도 그대로
 - 그대로 둔 것: '이 지역 검색' 버튼은 비활성 유지 — 검색 함수(`search_places`)가 아직 지도 영역을 받지 않음. 클러스터링, 다크 테마 지도(카카오 지도는 공식 다크 스타일 없음 → DESIGN.md §3 대안 승인 필요), 관리자 좌표 입력의 지도 선택
 - Kakao Developers 설정 (사용자): 앱 `AllNight`의 **카카오맵 사용 설정 ON** 필요 (2026-11-07 확인 시 `disabled OPEN_MAP_AND_LOCAL service` 응답). [플랫폼 → Web]에 `http://localhost:3000` 추가 필요 (배포 주소는 등록됨)
-- 검증: **미실행** — 작업한 PC에 Node.js가 없어 타입 검사·린트·빌드·화면 확인을 하지 못함. 병합 전에 `web/`에서 `npm run lint`, `npx tsc --noEmit`, `npm run build` 실행과 화면 확인 필요
+- 검증 (2026-11-07, Node.js 26.13 설치 후): `npm ci` → 린트 통과, `npm run build` 통과(12개 경로), 빌드 후 `npx tsc --noEmit` 통과. `next start` 화면 확인(1440px, 헤드리스 Edge): 검색 목록·상세 패널 정상, 상세의 "카카오맵에서 보기" 링크가 장소명·좌표로 생성됨, 지도 영역은 카카오가 요청을 거부해 "지도를 불러오지 못했습니다" + [다시 시도] 표시(실패 처리 동작 확인)
+- 미검증: **실제 지도·핀·이름표 표시** — 카카오맵 사용 설정 ON과 `localhost:3000` 도메인 등록 후 확인 필요. Cloudflare 미리보기(`npm run preview`)도 미실행
