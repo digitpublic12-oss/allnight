@@ -54,7 +54,8 @@ export default function KakaoMap() {
           center: new maps.LatLng(SEOUL_CITY_HALL.lat, SEOUL_CITY_HALL.lng),
           level: DEFAULT_LEVEL,
         });
-        map.addControl(new maps.ZoomControl(), maps.ControlPosition.RIGHT);
+        // 오른쪽 위는 [장소 제보]·[로그인] 메뉴가 차지하므로 확대·축소 버튼은 오른쪽 아래에 둔다
+        map.addControl(new maps.ZoomControl(), maps.ControlPosition.BOTTOMRIGHT);
         sdkRef.current = maps;
         mapRef.current = map;
         setStatus("ready");

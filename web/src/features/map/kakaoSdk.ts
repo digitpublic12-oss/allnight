@@ -40,7 +40,7 @@ export interface KakaoMaps {
     map?: KakaoMapInstance;
   }) => CustomOverlay;
   ZoomControl: new () => object;
-  ControlPosition: { RIGHT: number };
+  ControlPosition: { BOTTOMRIGHT: number };
   event: { addListener(target: object, type: string, handler: () => void): void };
 }
 
