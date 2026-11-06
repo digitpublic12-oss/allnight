@@ -227,3 +227,19 @@
   - 공개값 3개는 `web/.env.production`에 넣어 저장소로 관리 (대시보드 Builds 변수에 의존하지 않음)
   - Turnstile 위젯 허용 주소 확인: `allnight.digitpublic12.workers.dev`, `localhost`
 - 배포 주소: https://allnight.digitpublic12.workers.dev
+
+### 10. 카카오 지도 연결 — 구현 완료, 검증 대기 (브랜치 `feat/kakao-map`)
+
+- 결정: 지도 API를 **네이버 → 카카오**로 변경 (사용자·공동개발자 합의, 2026-11-07). 위 기록의 "네이버 지도" 표기는 당시 기록이라 그대로 둔다
+- 변경 파일
+  - `web/src/features/map/KakaoMap.tsx`·`.module.css` (`MapPlaceholder`를 이름 바꿔 교체) — 전체 화면 지도, 검색 결과 핀, 결과가 모두 보이게 범위 맞춤(왼쪽 패널 너비만큼 여백), 핀 클릭 → 장소 상세, 상세 화면의 장소 강조(이름표)·패널 옆 가운데로 이동, 지도 로드 실패 시 격자 배경 + [다시 시도] (12_common_exceptions.md)
+  - `web/src/features/map/kakaoSdk.ts` — SDK 1회 로드(`autoload=false`), 이 앱이 쓰는 기능만 최소 타입 정의 (새 패키지 설치 없음)
+  - `web/src/features/map/mapStore.ts` — 검색 패널 ↔ 지도 결과 공유 (`useSyncExternalStore`)
+  - `SearchPanel.tsx` — 검색이 끝나면 결과를 지도에 전달 / `PlaceDetailPanel.tsx` — 열린 장소를 지도에 전달, "네이버 지도에서 보기" → "카카오맵에서 보기"(좌표 링크)
+  - `web/.env.production`에 `NEXT_PUBLIC_KAKAO_MAP_APP_KEY`(공개용 JavaScript 키), `.env.example`의 네이버 항목을 카카오로 교체
+  - 문서: CLAUDE.md, AGENTS.md, PRD.md, SITEMAP.md, DB.md, DESIGN.md, pages/01·02·03·04·12의 지도 표기를 카카오로 변경. `naver_place_id` 컬럼·관련 설명(DB.md, 08_admin_place_edit.md)은 DB 변경이 필요해 그대로 둠, market.md(경쟁 서비스 분석)도 그대로
+- 그대로 둔 것: '이 지역 검색' 버튼은 비활성 유지 — 검색 함수(`search_places`)가 아직 지도 영역을 받지 않음. 클러스터링, 다크 테마 지도(카카오 지도는 공식 다크 스타일 없음 → DESIGN.md §3 대안 승인 필요), 관리자 좌표 입력의 지도 선택
+- Kakao Developers 설정 (사용자): 앱 `AllNight`의 **카카오맵 사용 설정 ON** 필요 (2026-11-07 확인 시 `disabled OPEN_MAP_AND_LOCAL service` 응답). [플랫폼 → Web]에 `http://localhost:3000` 추가 필요 (배포 주소는 등록됨)
+- 검증 (2026-11-07, Node.js 26.13 설치 후): `npm ci` → 린트 통과, `npm run build` 통과(12개 경로), 빌드 후 `npx tsc --noEmit` 통과. `next start` 화면 확인(1440px, 헤드리스 Edge): 검색 목록·상세 패널 정상, 상세의 "카카오맵에서 보기" 링크가 장소명·좌표로 생성됨, 지도 영역은 카카오가 요청을 거부해 "지도를 불러오지 못했습니다" + [다시 시도] 표시(실패 처리 동작 확인)
+- 지도 확인 (2026-11-07, 카카오맵 사용 설정 ON·`localhost:3000` 등록 후): 검색 결과 5곳 핀 표시·왼쪽 패널을 피해 범위 맞춤, 상세 주소로 바로 열면 해당 장소 이름표 표시·패널 옆으로 이동. 확대·축소 버튼이 오른쪽 위 메뉴([장소 제보]·[로그인])에 가려 오른쪽 아래로 옮김 → 다시 빌드·확인
+- 미검증: 핀 클릭·목록 클릭 등 직접 조작, 다크 모드에서의 지도, Cloudflare 미리보기(`npm run preview`)

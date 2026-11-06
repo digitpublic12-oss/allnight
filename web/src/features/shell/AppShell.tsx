@@ -1,4 +1,4 @@
-import MapPlaceholder from "@/features/map/MapPlaceholder";
+import KakaoMap from "@/features/map/KakaoMap";
 import SearchPanel from "@/features/search/SearchPanel";
 import TopMenu from "./TopMenu";
 import styles from "./AppShell.module.css";
@@ -8,7 +8,7 @@ export default function AppShell() {
   return (
     <>
       <main className={styles.shell}>
-        <MapPlaceholder />
+        <KakaoMap />
         <SearchPanel />
         <TopMenu />
       </main>

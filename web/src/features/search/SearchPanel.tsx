@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { setMapPlaces } from "@/features/map/mapStore";
 import PlaceDetailPanel from "@/features/place/PlaceDetailPanel";
 import { goBack, navigate } from "@/features/shell/navigation";
 import MySubmissionsPanel from "@/features/submission/MySubmissionsPanel";
@@ -88,7 +89,10 @@ export default function SearchPanel() {
           categoryIds: selectedIds,
           query: submittedQuery,
         });
-        if (requestId === latestRequest.current) setResult({ state: "done", places });
+        if (requestId === latestRequest.current) {
+          setResult({ state: "done", places });
+          setMapPlaces(places); // 지도 핀도 같은 결과로 갱신
+        }
       } catch {
         if (requestId === latestRequest.current) setResult({ state: "error" });
       }

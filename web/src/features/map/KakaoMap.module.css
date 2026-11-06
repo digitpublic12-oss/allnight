@@ -1,4 +1,5 @@
 /* 지도는 전체 viewport 배경 (DESIGN.md §4). 패널(400px + 여백) 오른쪽 영역 기준으로 컨트롤을 배치한다. */
+/* 지도를 불러오기 전·실패 시에는 격자 배경이 보인다. */
 .map {
   position: absolute;
   inset: 0;
@@ -9,8 +10,16 @@
   background-size: 48px 48px;
 }
 
+/* 카카오 지도가 그려지는 영역. z-index로 쌓임 맥락을 만들어 위 버튼들이 지도 아래로 숨지 않게 한다. */
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .areaSearch {
   position: absolute;
+  z-index: 1;
   top: var(--space-4);
   left: calc(var(--panel-width) + var(--space-8) + (100% - var(--panel-width) - var(--space-8)) / 2);
   transform: translateX(-50%);
@@ -19,9 +28,32 @@
 
 .notice {
   position: absolute;
+  z-index: 1;
   top: 50%;
   left: calc(var(--panel-width) + var(--space-8) + (100% - var(--panel-width) - var(--space-8)) / 2);
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
   color: var(--color-text-sub);
   font-size: var(--text-base);
+  text-align: center;
+}
+
+.notice p {
+  margin: 0;
+}
+
+/* 선택된 장소 이름표 (지도 위 CustomOverlay) */
+.label {
+  padding: 4px 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: var(--color-panel);
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow-float);
 }
