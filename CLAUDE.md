@@ -1,7 +1,7 @@
 # ALLNIGHT — Claude 작업 안내
 
 야간(18:00~익일 07:00) 이용 가능한 장소를 찾는 지도 중심 웹 서비스. 수업 "웹 시스템 구축 핸드북"의 10단계 진도에 맞춰 만든다.
-**진도만 핸드북을 따르고, 세부 방식은 이 저장소의 docs를 따른다** (Next.js + TypeScript, Supabase, 네이버 지도, Cloudflare, 데스크톱 전용).
+**진도만 핸드북을 따르고, 세부 방식은 이 저장소의 docs를 따른다** (Next.js + TypeScript, Supabase, 카카오 지도, Cloudflare, 데스크톱 전용).
 
 ## 작업 전에 반드시 읽을 것
 1. `docs/AGENTS.md` — 작업 절차와 승인 규칙. **승인 없이 변경·커밋·push·설치·DB 작업을 하지 않는다.**

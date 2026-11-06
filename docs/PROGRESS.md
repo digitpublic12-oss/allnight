@@ -227,3 +227,17 @@
   - 공개값 3개는 `web/.env.production`에 넣어 저장소로 관리 (대시보드 Builds 변수에 의존하지 않음)
   - Turnstile 위젯 허용 주소 확인: `allnight.digitpublic12.workers.dev`, `localhost`
 - 배포 주소: https://allnight.digitpublic12.workers.dev
+
+### 10. 카카오 지도 연결 — 구현 완료, 검증 대기 (브랜치 `feat/kakao-map`)
+
+- 결정: 지도 API를 **네이버 → 카카오**로 변경 (사용자·공동개발자 합의, 2026-11-07). 위 기록의 "네이버 지도" 표기는 당시 기록이라 그대로 둔다
+- 변경 파일
+  - `web/src/features/map/KakaoMap.tsx`·`.module.css` (`MapPlaceholder`를 이름 바꿔 교체) — 전체 화면 지도, 검색 결과 핀, 결과가 모두 보이게 범위 맞춤(왼쪽 패널 너비만큼 여백), 핀 클릭 → 장소 상세, 상세 화면의 장소 강조(이름표)·패널 옆 가운데로 이동, 지도 로드 실패 시 격자 배경 + [다시 시도] (12_common_exceptions.md)
+  - `web/src/features/map/kakaoSdk.ts` — SDK 1회 로드(`autoload=false`), 이 앱이 쓰는 기능만 최소 타입 정의 (새 패키지 설치 없음)
+  - `web/src/features/map/mapStore.ts` — 검색 패널 ↔ 지도 결과 공유 (`useSyncExternalStore`)
+  - `SearchPanel.tsx` — 검색이 끝나면 결과를 지도에 전달 / `PlaceDetailPanel.tsx` — 열린 장소를 지도에 전달, "네이버 지도에서 보기" → "카카오맵에서 보기"(좌표 링크)
+  - `web/.env.production`에 `NEXT_PUBLIC_KAKAO_MAP_APP_KEY`(공개용 JavaScript 키), `.env.example`의 네이버 항목을 카카오로 교체
+  - 문서: CLAUDE.md, AGENTS.md, PRD.md, SITEMAP.md, DB.md, DESIGN.md, pages/01·02·03·04·12의 지도 표기를 카카오로 변경. `naver_place_id` 컬럼·관련 설명(DB.md, 08_admin_place_edit.md)은 DB 변경이 필요해 그대로 둠, market.md(경쟁 서비스 분석)도 그대로
+- 그대로 둔 것: '이 지역 검색' 버튼은 비활성 유지 — 검색 함수(`search_places`)가 아직 지도 영역을 받지 않음. 클러스터링, 다크 테마 지도(카카오 지도는 공식 다크 스타일 없음 → DESIGN.md §3 대안 승인 필요), 관리자 좌표 입력의 지도 선택
+- Kakao Developers 설정 (사용자): 앱 `AllNight`의 **카카오맵 사용 설정 ON** 필요 (2026-11-07 확인 시 `disabled OPEN_MAP_AND_LOCAL service` 응답). [플랫폼 → Web]에 `http://localhost:3000` 추가 필요 (배포 주소는 등록됨)
+- 검증: **미실행** — 작업한 PC에 Node.js가 없어 타입 검사·린트·빌드·화면 확인을 하지 못함. 병합 전에 `web/`에서 `npm run lint`, `npx tsc --noEmit`, `npm run build` 실행과 화면 확인 필요

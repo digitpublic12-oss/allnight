@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { setMapFocus } from "@/features/map/mapStore";
 import type { CoverageStatus, TimeWindow } from "@/features/search/searchPlaces";
 import { WEEKDAY_NAMES, describeDay, formatDateLabel, todaySummary } from "./hours";
 import { fetchCoverage, fetchPlaceDetail, type PlaceDetail } from "./placeDetail";
@@ -76,6 +77,15 @@ export default function PlaceDetailPanel({ placeId, timeWindow, today, onBack, o
       cancelled = true;
     };
   }, [placeId, today, date, mode, start, end, retryCount]);
+
+  // 열린 장소를 지도에 알려 핀을 강조한다. 검색 결과에 없는 장소(상세 주소로 바로 들어온 경우)도 표시된다.
+  const loadedPlace = load.state === "done" ? load.place : null;
+  useEffect(() => {
+    if (!loadedPlace) return;
+    const { id, name, latitude, longitude } = loadedPlace;
+    setMapFocus({ id, name, latitude, longitude });
+    return () => setMapFocus(null);
+  }, [loadedPlace]);
 
   async function copyAddress(address: string) {
     try {
@@ -193,11 +203,11 @@ function DetailBody({ place, coverage, today, copied, weekOpen, onToggleWeek, on
       <div className={styles.actions}>
         <a
           className="btn"
-          href={`https://map.naver.com/p/search/${encodeURIComponent(place.address_full)}`}
+          href={`https://map.kakao.com/link/map/${encodeURIComponent(place.name)},${place.latitude},${place.longitude}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          네이버 지도에서 보기
+          카카오맵에서 보기
         </a>
         <button type="button" className="btn" onClick={onCorrect}>
           정보 수정 제보
