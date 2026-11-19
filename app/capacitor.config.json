@@ -1,0 +1,11 @@
+{
+  "appId": "com.allnight.app",
+  "appName": "ALLNIGHT",
+  "webDir": "www",
+  "server": {
+    "url": "https://allnight.digitpublic12.workers.dev",
+    "cleartext": false,
+    "allowNavigation": ["*.kakao.com", "*.kakaocdn.net", "*.supabase.co", "challenges.cloudflare.com"]
+  },
+  "android": { "allowMixedContent": false }
+}
