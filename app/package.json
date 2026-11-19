@@ -5,6 +5,8 @@
   "description": "ALLNIGHT Android 앱 (Capacitor). 화면과 기능은 ../web 을 배포한 주소를 그대로 불러온다.",
   "scripts": {
     "sync": "cap sync android",
+    "sync:prod": "cap sync android",
+    "sync:dev": "cross-env ALLNIGHT_WEB_URL=http://10.0.2.2:3000 cap sync android",
     "open": "cap open android",
     "doctor": "cap doctor"
   },
@@ -13,6 +15,7 @@
     "@capacitor/core": "^8.6.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.6.2"
+    "@capacitor/cli": "^8.6.2",
+    "cross-env": "^7.0.3"
   }
 }
