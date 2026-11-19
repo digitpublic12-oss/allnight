@@ -1,10 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { AuthProvider } from "@/features/auth/AuthProvider";
+import { RegisterServiceWorker } from "@/features/pwa/RegisterServiceWorker";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ALLNIGHT — 밤에 열려 있는 곳 찾기",
   description: "18:00부터 익일 07:00까지, 원하는 시간에 실제로 영업하는 장소를 지도에서 찾습니다.",
+  applicationName: "ALLNIGHT",
+  appleWebApp: { capable: true, title: "ALLNIGHT", statusBarStyle: "black-translucent" },
+  icons: { apple: "/icons/apple-touch-icon.png" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#111827",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -19,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <AuthProvider>{children}</AuthProvider>
+        <RegisterServiceWorker />
       </body>
     </html>
   );

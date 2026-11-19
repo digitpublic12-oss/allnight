@@ -243,3 +243,16 @@
 - 검증 (2026-11-07, Node.js 26.13 설치 후): `npm ci` → 린트 통과, `npm run build` 통과(12개 경로), 빌드 후 `npx tsc --noEmit` 통과. `next start` 화면 확인(1440px, 헤드리스 Edge): 검색 목록·상세 패널 정상, 상세의 "카카오맵에서 보기" 링크가 장소명·좌표로 생성됨, 지도 영역은 카카오가 요청을 거부해 "지도를 불러오지 못했습니다" + [다시 시도] 표시(실패 처리 동작 확인)
 - 지도 확인 (2026-11-07, 카카오맵 사용 설정 ON·`localhost:3000` 등록 후): 검색 결과 5곳 핀 표시·왼쪽 패널을 피해 범위 맞춤, 상세 주소로 바로 열면 해당 장소 이름표 표시·패널 옆으로 이동. 확대·축소 버튼이 오른쪽 위 메뉴([장소 제보]·[로그인])에 가려 오른쪽 아래로 옮김 → 다시 빌드·확인
 - 미검증: 핀 클릭·목록 클릭 등 직접 조작, 다크 모드에서의 지도, Cloudflare 미리보기(`npm run preview`)
+
+### 11. 웹 PWA 추가 — 구현 완료, 기기 설치 검증 대기 (브랜치 `feat/web-pwa`)
+
+- 목표: 기존 기능을 건드리지 않고 홈 화면 설치(PWA)만 가능하게 함 (사용자 요청, 2026-11-19)
+- 추가 파일
+  - `web/src/app/manifest.ts` — 설치 정보(이름·아이콘·standalone·테마색 `#111827`)
+  - `web/public/sw.js` — 서비스 워커. **페이지 이동이 오프라인으로 실패할 때만** 안내 화면을 보여주고, API·Supabase·카카오 지도·로그인 요청은 가로채지 않음(오래된 영업정보 캐시 방지)
+  - `web/public/offline.html`, `web/public/icons/*.png` (192·512·maskable·apple-touch, 달 모양 임시 아이콘)
+  - `web/src/features/pwa/RegisterServiceWorker.tsx` — 운영 빌드에서만 등록(`next dev`에서는 등록 안 함)
+- 수정 파일: `web/src/app/layout.tsx` (메타데이터·테마색·등록 컴포넌트 추가만, 기존 구조 유지)
+- 검증: `tsc --noEmit`·eslint 통과, `next build` 통과(`/manifest.webmanifest` 추가, 기존 12개 경로 그대로)
+- 미검증: 배포 후 Chrome/Android 설치 배너, iOS 홈 화면 추가, Lighthouse PWA 점수, Cloudflare(OpenNext)에서 `/sw.js`·`/offline.html` 서빙
+- 참고: 아이콘은 임시 디자인 (교체하려면 `web/public/icons/` 파일만 바꾸면 됨)
